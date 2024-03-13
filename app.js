@@ -13,6 +13,7 @@ var homeAdmin = require('./routes/homeAdmin');
 var addVoucher = require('./routes/addVoucher');
 var updateVoucher = require('./routes/updateVoucher');
 var qlyVcherAdmin = require('./routes/qlyVcher');
+var profileUser = require('./routes/profileUser');
 
 
 
@@ -37,6 +38,7 @@ app.use('/homeAdmin', homeAdmin);
 app.use('/addVoucher', addVoucher);
 app.use('/updateVoucher', updateVoucher);
 app.use('/qlyVcher', qlyVcherAdmin);
+app.use('/profileUser', profileUser);
 
 
 
