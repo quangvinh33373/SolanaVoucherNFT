@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var spController = require('../controller/home.controller')
+var spController = require('../controller/homeUser.controller')
 
 
-router.get('/',  spController.home);
-router.post('/',  spController.home);
+router.get('/',  spController.homeUser);
+router.post('/',  spController.homeUser);
 
 
 

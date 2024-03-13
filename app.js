@@ -8,9 +8,12 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var registerouter = require('./routes/register');
-var homerouter = require('./routes/home');
-var addVcherrouter = require('./routes/addVoucher');
-var updateVcherrouter = require('./routes/updateVoucher');
+var homeUser = require('./routes/homeUser');
+var homeAdmin = require('./routes/homeAdmin');
+var addVoucher = require('./routes/addVoucher');
+var updateVoucher = require('./routes/updateVoucher');
+var qlyVcherAdmin = require('./routes/qlyVcher');
+
 
 
 var app = express();
@@ -29,9 +32,13 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerouter);
-app.use('/home', homerouter);
-app.use('/addVcher', addVcherrouter);
-app.use('/updateVcher', updateVcherrouter);
+app.use('/homeUser', homeUser);
+app.use('/homeAdmin', homeAdmin);
+app.use('/addVoucher', addVoucher);
+app.use('/updateVoucher', updateVoucher);
+app.use('/qlyVcher', qlyVcherAdmin);
+
+
 
 
 // catch 404 and forward to error handler

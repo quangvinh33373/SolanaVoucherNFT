@@ -1,4 +1,4 @@
 
-exports.home = async (req, res, next) => {
-    res.render("home/home");
+exports.homeUser = async (req, res, next) => {
+    res.render("homeUser/homeUser");
   };

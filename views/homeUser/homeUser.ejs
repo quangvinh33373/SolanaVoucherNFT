@@ -68,6 +68,18 @@
       align-items: center;
       min-height: 60vh; /* Đảm bảo nó không quá ngắn */
     }
+    .voucherAdmin {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .voucherAdmin img {
+        width: 100px;
+        margin-right: 20px;
+    }
+    .voucherAdmin .details {
+        flex-grow: 1;
+    }
   </style>
 </head>
 
@@ -99,12 +111,28 @@
         <input type="text" placeholder="Tìm kiếm...">
       </div>
     </div>
-    <title>Danh sách mã giảm giá</title>
+    <title></title>
     <div class="voucher">
-      <img src="cinqueterre.jpg" class="img-circle" alt="Cinque Terre">
+      <img src="cinqueterre.jpg"  alt="Cinque Terre">
       
     </div>
+    
   </nav>
+  <h1>Danh sách mã giảm giá</h1>
+ 
+<% voucherAdmin.forEach(voucherAdmin => { %>
+  <div class="voucherAdmin">
+      <img src="/images/<%= voucherAdmin.photo %>" alt="<%= voucherAdmin.name %>">
+      <div class="details">
+          <h3><%= voucherAdmin.name %></h3>
+          <p>Date: <%= voucherAdmin.date %></p>
+          <p>Quantity: <%= voucherAdmin.quantity %></p>
+      </div>
+      <form action="/buy/<%= voucherAdmin._id %>" method="POST">
+          <button type="submit">Buy</button>
+      </form>
+  </div>
+<% }); %>
 
   
 
