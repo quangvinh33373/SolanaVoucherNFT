@@ -14,7 +14,9 @@ var addVoucher = require('./routes/addVoucher');
 var updateVoucher = require('./routes/updateVoucher');
 var qlyVcherAdmin = require('./routes/qlyVcher');
 
-
+var addkhachhangrouter = require('./routes/addkhachhang');
+var updatekhachhangrouter = require('./routes/updatekhachhang');
+var khachhangrouter = require('./routes/khachhang');
 
 var app = express();
 
@@ -38,7 +40,9 @@ app.use('/addVoucher', addVoucher);
 app.use('/updateVoucher', updateVoucher);
 app.use('/qlyVcher', qlyVcherAdmin);
 
-
+app.use('/addkhachhang', addkhachhangrouter);
+app.use('/updatekhachhang', updatekhachhangrouter);
+app.use('/khachhang', khachhangrouter);
 
 
 // catch 404 and forward to error handler
