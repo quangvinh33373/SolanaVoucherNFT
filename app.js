@@ -9,6 +9,9 @@ var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var registerouter = require('./routes/register');
 var homerouter = require('./routes/home');
+var addVcherrouter = require('./routes/addVoucher');
+var updateVcherrouter = require('./routes/updateVoucher');
+
 
 var app = express();
 
@@ -27,6 +30,9 @@ app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerouter);
 app.use('/home', homerouter);
+app.use('/addVcher', addVcherrouter);
+app.use('/updateVcher', updateVcherrouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -45,3 +51,8 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+const port = 8000;
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
