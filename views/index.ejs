@@ -14,8 +14,101 @@
 <div class="container">
   <h1><%= title %></h1>
   <p>Welcome to <%= title %></p>
-  <button class="btn btn-primary">Mint</button>
-  <p>Ấn mint để mint Drakecoin</p>
+  <form id="walletForm">
+    <input type="text" id="walletAddress" placeholder="Enter wallet address" />
+    <button type="button" id="mintButton" class="btn btn-primary">Mint</button>
+  </form>
+  <p>Press the mint button to mint Drakecoin</p>
+
+  <form id="transactionForm">
+    <input type="text" id="senderPrivateKey" placeholder="Sender's private key" />
+    <input type="text" id="recipientPrivateKey" placeholder="Recipient's private key" />
+    <button type="button" id="sendButton" class="btn btn-primary">Send</button>
+  </form>
+  <p>Press the send button to initiate the transaction</p>
 </div>
+
+<script>
+  document.getElementById("mintButton").addEventListener("click", function(event) {
+    const walletAddress = document.getElementById("walletAddress").value;
+
+    // Send walletAddress to the server
+    fetch('/mint', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ walletAddress: walletAddress })
+    })
+            .then(function(response) {
+              if (response.ok) {
+                console.log('Mint request sent successfully');
+              } else {
+                console.error('Failed to send mint request');
+              }
+            })
+            .catch(function(error) {
+              console.error('Error sending mint request:', error);
+            });
+  });
+</script>
+<script>
+  document.getElementById("sendButton").addEventListener("click", function(event) {
+    const senderPrivateKey = document.getElementById("senderPrivateKey").value;
+    const recipientPrivateKey = document.getElementById("recipientPrivateKey").value;
+
+    // Send senderPrivateKey and recipientPrivateKey to the server
+    fetch('/transaction', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        senderPrivateKey: senderPrivateKey,
+        recipientPrivateKey: recipientPrivateKey
+      })
+    })
+            .then(function(response) {
+              if (response.ok) {
+                console.log('Transaction request sent successfully');
+              } else {
+                console.error('Failed to send transaction request');
+              }
+            })
+            .catch(function(error) {
+              console.error('Error sending transaction request:', error);
+            });
+  });
+</script>
+
+<script>
+  document.getElementById("transactionForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const senderPrivateKey = document.getElementById("senderPrivateKey").value;
+    const recipientPrivateKey = document.getElementById("recipientPrivateKey").value;
+
+    // Send senderPrivateKey and recipientPrivateKey to the server
+    fetch('/transaction', {
+      method: 'POST',
+      headers: {
+        'Content-Type': `'application/json'`
+      },
+      body: JSON.stringify({
+        senderPrivateKey: senderPrivateKey,
+        recipientPrivateKey: recipientPrivateKey
+      })
+    })
+            .then(function(response) {
+              if (response.ok) {
+                console.log('Transaction request sent successfully');
+              } else {
+                console.error('Failed to send transaction request');
+              }
+            })
+            .catch(function(error) {
+              console.error('Error sending transaction request:', error);
+            });
+  });
+</script>
 </body>
 </html>
