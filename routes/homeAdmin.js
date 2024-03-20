@@ -4,7 +4,7 @@ var spController = require('../controller/homeAdmin.controller')
 
 
 router.get('/',  spController.homeAdmin);
-router.post('/',  spController.homeAdmin);
+router.post('/add',  spController.homeAdmin);
 
 
 

@@ -5,19 +5,19 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+
 var loginRouter = require('./routes/login');
-var registerouter = require('./routes/register');
-var homeUser = require('./routes/homeUser');
+
+
 var homeAdmin = require('./routes/homeAdmin');
 var addVoucher = require('./routes/addVoucher');
 var updateVoucher = require('./routes/updateVoucher');
 var qlyVcherAdmin = require('./routes/qlyVcher');
-var profileUser = require('./routes/profileUser');
+var qlyKH = require('./routes/qlyKH');
 
-var addkhachhangrouter = require('./routes/addkhachhang');
-var updatekhachhangrouter = require('./routes/updatekhachhang');
-var khachhangrouter = require('./routes/khachhang');
+
+var updatekhachhangrouter = require('./routes/updateKH');
+
 
 var app = express();
 
@@ -32,19 +32,19 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+
 app.use('/login', loginRouter);
-app.use('/register', registerouter);
-app.use('/homeUser', homeUser);
+
 app.use('/homeAdmin', homeAdmin);
 app.use('/addVoucher', addVoucher);
 app.use('/updateVoucher', updateVoucher);
-app.use('/qlyVcher', qlyVcherAdmin);
-app.use('/profileUser', profileUser);
+app.use('/qlyKH', qlyKH);
 
-app.use('/addkhachhang', addkhachhangrouter);
+app.use('/qlyVcher', qlyVcherAdmin);
+
+
 app.use('/updatekhachhang', updatekhachhangrouter);
-app.use('/khachhang', khachhangrouter);
+
 
 
 // catch 404 and forward to error handler
