@@ -58,7 +58,7 @@
                                     
                                     <button data-item-id="<%= item.id %>" 
                                      data-item-avatar="<%= item.Avatar %>" 
-                                        data-item-name="<%= item.FullName %>"
+                                        data-item-name="<%= item.Fullname %>"
                                         data-item-email="<%= item.Email %>"
                                         data-item-sdt="<%= item.SDT %>"
 
@@ -107,26 +107,26 @@
                       <div class="modal-body">
                         <div class="input-group" style="margin-top: 10px;">
                           <label for="avatar" class="input-group-text" >avatar</label>
-                          <input name="Avatar"  id="avatar" type="text" aria-label="First name" class="form-control" >
-                         </div>
-                          <div class="input-group" style="margin-top: 10px;">
-                          <label for="tenKH" class="input-group-text" >FullName</label>
-                          <input name="Fullname"  id="tenKH" type="text" aria-label="First name" class="form-control">
-                         </div>
-
-                         <div class="input-group" style="margin-top: 10px;">
-                          <label for="email" class="input-group-text" >Email</label>
-                          <input name="Email"  id="emailKH" type="text" aria-label="First name" class="form-control">
-                         </div>
-                         <div class="input-group" style="margin-top: 10px;">
-                          <label for="sdtKH" class="input-group-text" >SDT</label>
-                          <input name="SDT"  id="sdtKH" type="text" aria-label="First name" class="form-control">
-                         </div>
-
-                         <div class="input-group" style="margin-top: 10px;">
-                          <label for="mkKH" class="input-group-text" >Password</label>
-                          <input name="Password"  id="mkKH" type="text" aria-label="First name" class="form-control">
-                         </div>
+                          <input name="Avatar"  id="avatar" type="text" aria-label="First name" class="form-control">
+                                   </div>
+                                    <div class="input-group" style="margin-top: 10px;">
+                                    <label for="tenKH" class="input-group-text" >FullName</label>
+                                    <input name="Fullname"  id="tenKH" type="text" aria-label="First name" class="form-control">
+                                   </div>
+        
+                                   <div class="input-group" style="margin-top: 10px;">
+                                    <label for="email" class="input-group-text" >Email</label>
+                                    <input name="Email"  id="emailKH" type="text" aria-label="First name" class="form-control">
+                                   </div>
+                                   <div class="input-group" style="margin-top: 10px;">
+                                    <label for="sdtKH" class="input-group-text" >SDT</label>
+                                    <input name="SDT"  id="sdtKH" type="text" aria-label="First name" class="form-control">
+                                   </div>
+        
+                                   <div class="input-group" style="margin-top: 10px;">
+                                    <label for="mkKH" class="input-group-text" >Password</label>
+                                    <input name="Password"  id="mkKH" type="text" aria-label="First name" class="form-control">
+                                   </div>
                           
                       </div>
                       <div class="modal-footer">
@@ -146,7 +146,7 @@
                         <h1 class="modal-title fs-5" id="deleteModalLabel">Delete KH</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="qlyKH/delete" method="post">
+                    <form action="qlyKH/deleteKH" method="post">
                         <div class="modal-body">
                             Bạn chắc chắn muốn xóa?
                         </div>
@@ -259,7 +259,7 @@
             <script>
                 const deleteButtons = document.querySelectorAll('.btn.btn-danger');
                 const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-                const deleteForm = document.querySelector('form[action="qlyKH/delete"]');
+                const deleteForm = document.querySelector('form[action="qlyKH/deleteKH"]');
 
                 // Bắt sự kiện khi nút "Delete" được nhấn
                 deleteButtons.forEach(button => {
@@ -273,7 +273,7 @@
                         // modalBody.textContent = `Do you want to delete the product named "${itemName}"?`;
 
                         // Thay đổi giá trị của thuộc tính action của form khi nút "Delete" được nhấn
-                        deleteForm.action = `qlyKH/delete/${itemId}`;
+                        deleteForm.action = `qlyKH/deleteKH/${itemId}`;
                     });
                 });
             </script>

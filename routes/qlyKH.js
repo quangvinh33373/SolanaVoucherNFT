@@ -5,8 +5,8 @@ var spController = require('../controller/qlyKH.controller')
 
 router.get('/',  spController.qlyKH);
 router.post('/addKH',  spController.put);
-router.get('/updateKH/:id',  spController.update);
-router.delete('/deleteKh/:id',spController.delete)
+router.post('/updateKH/:id',  spController.update);
+router.post('/deleteKH/:id',spController.delete)
 
 
 module.exports = router;

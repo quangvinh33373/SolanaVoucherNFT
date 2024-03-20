@@ -33,16 +33,27 @@ exports.qlyKH = async (req, res, next) => {
 
 exports.delete=async(req,res,next)=>{
   try {
-      let id = req.params.id; // Lấy ID tài liệu từ URL
-  
-      // Xóa tài liệu dựa trên ID đã cung cấp
-      await admin.firestore().collection('Users').doc(id).delete();
-  
+    const Id=req.params.id;
+    const collectionRef = db.collection('Users');
+
+    collectionRef.get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const docData = doc.data();
+    
+        // Kiểm tra và cập nhật các item
+        if (docData.id === Id) {
+          console.log('Tìm thấy item cần xoa ');
+          doc.ref.delete();
+         
       res.redirect('/qlyKH');
-    } catch (error) {
-      console.error('Error deleting data:', error);
-      res.status(500).send('Error deleting data from Firestore');
-    }
+        }
+      });
+    });
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Error fetching data from Firestore');
+  }
 }
 
 exports.put=async(req,res,next)=>{
@@ -84,6 +95,7 @@ exports.put=async(req,res,next)=>{
 }
 exports.update=async(req,res,next)=>{
   try {
+    const Id=req.params.id;
     const newData = {
       id : Id,
       Avatar: req.body.Avatar,
@@ -92,35 +104,22 @@ exports.update=async(req,res,next)=>{
       Fullname: req.body.Fullname,
       Email:req.body.Email,
       Password: req.body.Password,
-    };
+    }; 
     console.log(newData) 
-    const collectionRef = db.collection('Address');
+    const collectionRef = db.collection('Users');
 
     collectionRef.get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         const docData = doc.data();
-
-        // Kiểm tra và xóa đối tượng map
-        for (const key in docData) {
-          const fieldValue = docData[key];
-          if (typeof fieldValue === 'object' && fieldValue !== null && fieldValue.idAdress=== Id) {
-          docData[key]=newData ;
-            break;
-          }
+    
+        // Kiểm tra và cập nhật các item
+        if (docData.id === Id) {
+          console.log('Tìm thấy item cần sửa');
+          doc.ref.update(newData);
+         
+      res.redirect('/qlyKH');
         }
-
-        // Cập nhật lại tài liệu
-        doc.ref.set(docData)
-            .then(() => {
-              console.log('Đối tượng map đã được cap nhat thành công');
-              res.send("cap nhat thanh cong")
-            })
-            .catch((error) => {
-              console.error('Lỗi khi cập nhật tài liệu:', error);
-            });
       });
-    }).catch((error) => {
-      console.error('Lỗi khi truy xuất tài liệu:', error);
     });
 
   } catch (error) {
