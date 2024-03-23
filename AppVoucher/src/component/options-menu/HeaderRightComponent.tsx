@@ -40,8 +40,6 @@ const HeaderRightComponent: React.FC<NavProps> = ({ navigation ,idCH}: any) =>  
         <Menu opened={showOptionsMenu} onBackdropPress={() => setShowOptionsMenu(false)}>
         <MenuTrigger />
         <MenuOptions>
-            <MenuOption onSelect={() => handleOptionClick("DetailCuaHangScreen")}><Text>Thông tin cửa hàng</Text></MenuOption>
-            <MenuOption onSelect={() => handleOptionClick("DetailNhanVienScreen")}><Text>Thông tin cá nhân</Text></MenuOption>
             <MenuOption onSelect={() => logout()}><Text>Đăng xuất</Text></MenuOption>
         </MenuOptions>
         </Menu>

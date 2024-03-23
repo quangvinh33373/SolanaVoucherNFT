@@ -15,74 +15,69 @@ import {
 } from 'react-native-responsive-screen';
 import {appColors} from '../../constants/appColors';
 import ButtonComponent from '../../component/ButtonComponent';
-import EditTextComponent from '../../component/EditTextComponent';
-const DetailNhanVienScreen: React.FC<NavProps> = ({navigation,route} : any) => {
-  const {item , position} = route.params;
 
-  const hahandelUpdate = () => {
-    navigation.navigate('EditNhanVienBanScreen', {item});
-  };
-  const hahandelUpdatePass = () => {
-    navigation.navigate('UpdatePasswordScreen');
-  };
+const DetailNhanVienScreen: React.FC<NavProps> = ({navigation}) => {
+
+  // const hahandelUpdate = () => {
+  //   navigation.navigate('EditNhanVienBanScreen');
+  // };
+  // const hahandelUpdatePass = () => {
+  //   navigation.navigate('UpdatePasswordScreen');
+  // };
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Image
-          style={{width: wp(40), height: hp(20), borderRadius: 5}}
-          source={{
-            uri: item.hinhAnh,
-          }}
-        />
-      </View>
-      <View style={styles.main}>
-        <View style = {styles.viewText}>
-          <Text>Tên</Text>        </View>
+    // <View style={styles.container}>
+    //   <View style={styles.header}>
+      
+    //   </View>
+    //   <View style={styles.main}>
+    //     <View style = {styles.viewText}>
+    //       <Text>Tên</Text>        </View>
 
-        <View style = {styles.viewText}>
-          <Text>Giới tính</Text>
-        </View>
+    //     <View style = {styles.viewText}>
+    //       <Text>Giới tính</Text>
+    //     </View>
 
-        <View style = {styles.viewText}>
-          <Text>Email</Text>
-        </View>
+    //     <View style = {styles.viewText}>
+    //       <Text>Email</Text>
+    //     </View>
 
-        <View style = {styles.viewText}>
-          <Text>Số điện thoại</Text>
-        </View>
+    //     <View style = {styles.viewText}>
+    //       <Text>Số điện thoại</Text>
+    //     </View>
         
-        <View style = {styles.viewText}>
-          <Text>Địa chỉ</Text>
-        </View>
+    //     <View style = {styles.viewText}>
+    //       <Text>Địa chỉ</Text>
+    //     </View>
 
-        <View style = {styles.viewText}>
-          <Text>Vai trò</Text>
+    //     <View style = {styles.viewText}>
+    //       <Text>Vai trò</Text>
 
-        </View>
+    //     </View>
 
-        <View style = {styles.viewText}>
-          <Text>Trạng thái</Text>
+    //     <View style = {styles.viewText}>
+    //       <Text>Trạng thái</Text>
 
-        </View>
+    //     </View>
       
         
-      </View>
-      <View style = {styles.footer}>
-        {position === 0 ? (  <ButtonComponent
-          type="primary"
-          text="Sửa nhân viên"
-          textStyles={{color: 'white', fontSize: 20, fontWeight: 'bold'}}
-          onPress={hahandelUpdate}
-        />) : null}
+    //   </View>
+    //   {/* <View style = {styles.footer}>
+    //      <ButtonComponent
+    //       type="primary"
+    //       text="Sửa nhân viên"
+    //       textStyles={{color: 'white', fontSize: 20, fontWeight: 'bold'}}
+    //       onPress={hahandelUpdate}
+    //     />
     
-        <ButtonComponent
-          type="primary"
-          text="Đổi mật khẩu"
-          textStyles={{color: 'white', fontSize: 20, fontWeight: 'bold'}}
-          onPress={hahandelUpdatePass}
-        />
-      </View>
-    </View>
+    //     <ButtonComponent
+    //       type="primary"
+    //       text="Đổi mật khẩu"
+    //       textStyles={{color: 'white', fontSize: 20, fontWeight: 'bold'}}
+    //       onPress={hahandelUpdatePass}
+    //     />
+    //   </View> */}
+    // </View>
+    <Text>day la man profile</Text>
   );
 };
 
