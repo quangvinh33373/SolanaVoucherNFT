@@ -19,11 +19,7 @@ import ButtonComponent from '../../component/ButtonComponent';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {appColors} from '../../constants/appColors';
 import AlertComponent from '../../component/AlertComponent';
-import authenticationAPI from '../../apis/authApi';
 import { useSelector } from 'react-redux';
-import { getDataStore } from '../../redux/reducers/authReducers';
-import { NhanVien } from '../../models/NhanVien';
-import { CuaHang } from '../../models/CuaHang';
 import { ScrollView } from 'react-native-gesture-handler';
 import LoadingComponent from '../../component/LoadingComponent';
 
@@ -37,8 +33,6 @@ const RegisterUserScreen: React.FC<NavProps> = ({navigation}) => {
   const [isChecked, setChecked] = useState<boolean>();
   const [showAlert, setShowAlert] = useState(false);
   const [msg, setMsg] = useState('');
-  const [idStore, setIdStore] = useState('');
-  const storeData = useSelector(getDataStore);
   const [isLoading, setIsLoading] = useState(false);
 
   
@@ -81,80 +75,6 @@ const RegisterUserScreen: React.FC<NavProps> = ({navigation}) => {
 
     return null;
   };
-  
-  const saveUser = async (idStore:string) => {
-    try {
-      const res = await authenticationAPI.HandleAuthentication(
-        '/nhanvien/nhanvienquanly',
-        {
-          idCH: idStore,
-          taiKhoan: userName,
-          matKhau: pass,
-          tenNV: name,
-          diaChi: address,
-          sdt: phone,
-        },
-        'post',
-      );
-
-      if (res.success === true) {
-        setMsg(res.msg)
-        handleShowAlert();
-      } else {
-        setMsg(res.msg)
-        handleShowAlert();
-      }
-    } catch (err) {
-      console.log(err);
-      setTimeout(() => {
-        setMsg('Lỗi server');
-        handleShowAlert();
-      }, 1000);
-    }
-  };
-  
-  const saveData = async () => {
-    try {
-      setIsLoading(true);
-  
-      const storedName = storeData.tenCH;
-      const storedPhone = storeData.email;
-      const storedAddress = storeData.sdt;
-      const storedMail = storeData.diaChi;
-  
-      const res = await authenticationAPI.HandleAuthentication(
-        '/nhanvien/cuahang',
-        {
-          tenCH: storedName,
-          email: storedPhone,
-          sdt: storedAddress,
-          diaChi: storedMail,
-        },
-        'post',
-      );
-  
-      // Chờ 1 giây trước khi thực hiện lưu user
-      setTimeout(() => {
-        setIsLoading(false);
-        if (res.success === true) {
-          // setIdStore(res.index._id);
-          console.log(res.index._id) // Thiết lập idStore
-          saveUser(res.index._id); // Gọi hàm saveUser khi idStore đã được thiết lập
-        } else {
-          setMsg(res.msg);
-          console.log(res.msg);
-          handleShowAlert();
-        }
-      }, 1000);
-    } catch (err) {
-      console.log(err);
-      setTimeout(() => {
-        setMsg('Lỗi server');
-        handleShowAlert();
-        setIsLoading(false);
-      }, 1000);
-    }
-  };
  
 
   const handelRegister = () => {
@@ -164,7 +84,7 @@ const RegisterUserScreen: React.FC<NavProps> = ({navigation}) => {
       handleShowAlert();
       return;
     }
-    saveData();
+    
   };
 
 
@@ -172,8 +92,7 @@ const RegisterUserScreen: React.FC<NavProps> = ({navigation}) => {
     <KeyboardAvoidingView
     style={{ flex: 1 }}
     behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Đảm bảo bàn phím không che phủ các EditText
-  >
-    <ScrollView style={styles.container} >
+  >  
       <View style={styles.header}>
         <TextComponent
           text="Đăng Ký"
@@ -196,26 +115,7 @@ const RegisterUserScreen: React.FC<NavProps> = ({navigation}) => {
             onChangeText={setName}
             icon={faShop}
           />
-          
-
-          <EditTextComponent
-            label="number"
-            placeholder="Số điện thoại"
-            value={phone}
-            iconColor="gray"
-            onChangeText={setPhone}
-            icon={faPhone}
-          />
-
-          <EditTextComponent
-            label="text"
-            placeholder="Địa chỉ"
-            value={address}
-            iconColor="gray"
-            onChangeText={setAddress}
-            icon={faLocationDot}
-          />
-
+      
           <EditTextComponent
             label="text"
             placeholder="Email"
@@ -243,7 +143,7 @@ const RegisterUserScreen: React.FC<NavProps> = ({navigation}) => {
             icon={faLock}
           />
         </View>
-        <View style={{flexDirection: 'row', backgroundColor: ' black',paddingTop: 5, paddingBottom:5}}>
+        <View style={{flexDirection: 'row', backgroundColor: ' black',paddingTop: 15, paddingBottom:20}}>
           <BouncyCheckbox
             size={20}
             fillColor={appColors.primary}
@@ -303,7 +203,7 @@ const RegisterUserScreen: React.FC<NavProps> = ({navigation}) => {
         />
         <LoadingComponent visible={isLoading}/>
       </View>
-    </ScrollView>
+  
     </KeyboardAvoidingView>
 
   );
@@ -311,7 +211,7 @@ const RegisterUserScreen: React.FC<NavProps> = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: hp(100),
+  
 backgroundColor: 'white',
   },
   text: {
@@ -325,13 +225,14 @@ backgroundColor: 'white',
   },
   main: {
     height: hp(80),
-    justifyContent: 'space-between',
+    
   },
   viewEditTex: {
-    height: hp(65),
+    height: hp(35),
     justifyContent: 'space-between',
   },
   footer: {
+    marginTop: 20,
     height: hp(4),
   },
   signOut: {

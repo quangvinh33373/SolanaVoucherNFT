@@ -16,10 +16,9 @@ import {
 import {appColors} from '../../constants/appColors';
 import EditTextComponent from '../../component/EditTextComponent';
 import ButtonComponent from '../../component/ButtonComponent';
-import {getData} from '../../utils/storageUtils';
 import AlertComponent from '../../component/AlertComponent';
 import LoadingComponent from '../../component/LoadingComponent';
-import authenticationAPI from '../../apis/authApi';
+
 const UpdatePasswordScreen: React.FC<NavProps> = ({navigation}) => {
   const [id, setId] = useState('');
   const [oldPass, setOldPass] = useState('');
@@ -38,7 +37,15 @@ const UpdatePasswordScreen: React.FC<NavProps> = ({navigation}) => {
   const handleCloseAlert = () => {
     setShowAlert(false);
   };
+
+  //  kiểm tra nhập trống
   const validateInputs = () => {
+    if (!userName.trim()) {
+      return 'Vui lòng nhập tài khoản';
+    }
+    if (!oldPass.trim()) {
+      return 'Vui lòng nhập mật khẩu';
+    }
     if (!newPass.trim()) {
       return 'Vui lòng nhập mật khẩu';
     }
@@ -50,58 +57,32 @@ const UpdatePasswordScreen: React.FC<NavProps> = ({navigation}) => {
     return null;
   };
 
-  const getUser = async () => {
-    const user = await getData();
-    setUserName(user?.taiKhoan || '');
-    setId(user?.idUser || '');
-  };
 
-  useEffect(() => {
-    getUser();
-  }, []);
 
-  const save = async () => {
-    setLoading(true);
-    try {
-      const user = await getData();
-      const id = user?.idUser;
-
-      const res = await authenticationAPI.HandleAuthentication(
-        `/nhanvien/nhanvienquanly/doi-mat-khau/${id}`,
-        {matKhauCu: oldPass, matKhauMoi: newPass},
-        'post',
-      );
-
-      if (res.success === true) {
-        setMsg(res.msg);
-        handleShowAlert();
-      } else {
-        setMsg(res.msg);
-        handleShowAlert();
-      }
-    } catch (err) {
-      console.log(err);
-      setMsg('Request timeout. Please try again later.'); // Set error message
-      handleShowAlert();
-    } finally {
-      setLoading(false);
-    }
-  };
   const handelSave = () => {
     const errorMessage = validateInputs();
+  
     if (errorMessage) {
       setMsg(errorMessage);
-      handleShowAlert();
+      handleShowAlert(); // Hiển thị thông báo lỗi
       return;
     }
-    save();
+  
+    // Kiểm tra tên người dùng và mật khẩu
+    if (userName === 'admin' && oldPass === '123') {
+      handleCloseAlert(); 
+      navigation.navigate('LoginScreen'); // Đăng nhập thành công, chuyển hướng đến màn hình Home
+    } else {
+      setMsg('Tài khoản hoặc mật khẩu không chính xác');
+      handleShowAlert(); 
+    }
   };
   return (
     <View style={styles.container}>
       <View style={styles.main}>
         <EditTextComponent
           label="text"
-          placeholder="Email"
+          placeholder="Tài khoản "
           value={userName}
           iconColor="gray"
           onChangeText={setUserName}

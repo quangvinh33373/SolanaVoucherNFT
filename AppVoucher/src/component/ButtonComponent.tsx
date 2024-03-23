@@ -23,6 +23,7 @@ interface Props {
   onPress?: () => void;
   iconFlex?: 'right' | 'left';
   disable?: boolean;
+  marginTop?:number;
 }
 
 const ButtonComponent = (props: Props) => {
@@ -38,6 +39,7 @@ const ButtonComponent = (props: Props) => {
     type,
     disable,
     iConStyles,
+    marginTop,
   } = props;
 
   return type === 'primary' ? (

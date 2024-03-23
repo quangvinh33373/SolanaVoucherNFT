@@ -145,7 +145,7 @@ const LoginScreen: React.FC<NavProps> = ({navigation}) => {
               <ButtonComponent
                 type="link"
                 text="Quên mật khẩu ?"
-                onPress={() => navigation.navigate('SignUpScreen')}
+                onPress={() => navigation.navigate('UpdatePasswordScreen')}
                 textStyles={{fontWeight: 'bold'}} // Cập nhật style ở đây
               />
             </View>
