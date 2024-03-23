@@ -67,7 +67,7 @@ export default function ManHinhChinh() {
             />
 
             <View style={{alignSelf:"center"}}>
-              <Text style={{ fontSize: 16, fontWeight: 700 }}>{tenNhanVien}</Text>
+              <Text style={{ fontSize: 16, fontWeight: 700 }}>Bui Van A</Text>
               <View style={{flexDirection:"row" , alignItems:"center"}}>
 
                 <Image
