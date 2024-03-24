@@ -5,20 +5,15 @@ import { Picker } from '@react-native-picker/picker';
 import { Feather, MaterialIcons, FontAwesome, Fontisto, MaterialCommunityIcons, Ionicons, SimpleLineIcons, EvilIcons } from '@expo/vector-icons';
 
 
-//rnfs : tạo sẵn 
-export default function QuanLyPhong({ navigation }) {
-    const hostname = '192.168.126.1'; //hantnph28876
-    //const hostname = "192.168.1.6"; //long
+export default function QuanLyVoucher({ navigation }) {
 
     const [_id, setId] = useState();
     const [tenPhong, setTenPhong] = useState();
     const [tienThueTheoGio, setTienThueTheoGio] = useState();
     const [tienThueTheoNgay, setTienThueTheoNgay] = useState();
-    //tình trạng trống phòng
-    //yes: trống, no: đã thuê
+
     const [tinhTrang, setTinhTrang] = useState("Yes");
 
-    //mã loại phòng
     const [maLoaiPhong, setMaLoaiPhong] = useState([]);
     const [selectLoaiPhong, setSelectLoaiPhong] = useState();
 
@@ -31,249 +26,14 @@ export default function QuanLyPhong({ navigation }) {
     const [btnLeft, setBtnLeft] = useState("");
     const [btnRight, setBtnRight] = useState("");
 
-    //check dialog chức năng
     const [showDialogChucNang, setShowDiaLogChucNang] = useState(false);
 
-    //const set value title dialog
     const [title, setTitle] = useState("");
 
-    //search phòng
     const [search, setSearch] = useState("");
     const [oldListPhong, setOldListPhong] = useState([]);
 
-    const onSearch = (text) => {
-        if (text == '') {
-            setListPhong(oldListPhong)
-        } else {
-            const tempList = listPhong.filter(item => {
-                return item.tenPhong.toLowerCase().indexOf(text.toLowerCase()) > -1
-                    || item.tinhTrang.toLowerCase().indexOf(text.toLowerCase()) > -1
-                    || item.tienThueTheoGio.toLowerCase().indexOf(text.toLowerCase()) > -1
-                    || item.tienThueTheoNgay.toLowerCase().indexOf(text.toLowerCase()) > -1;
-            });
-            setListPhong(tempList)
-        }
-    };
-
-    //insert phong
-    const insertPhong = () => {
-        
-        const phong = {
-            tenPhong: tenPhong,
-            tinhTrang: "Yes",
-            maLoaiPhong: selectLoaiPhong,
-            tienThueTheoGio: tienThueTheoGio,
-            tienThueTheoNgay: tienThueTheoNgay
-        }
-        if (tenPhong.length == 0) {
-            Alert.alert("Thông báo", "Tên phòng không được để trống")
-            return;
-        }
-        if (tienThueTheoGio.length == 0) {
-            Alert.alert("Thông báo", "Tiền thuê theo giờ không được để trống")
-            return;
-        }
-        if (tienThueTheoNgay.length == 0) {
-            Alert.alert("Thông báo", "Tiền thuê theo ngày không được để trống")
-            return;
-        }
-        if (maLoaiPhong == null) {
-            Alert.alert("Thông báo", "Mã loại phòng không được để trống")
-            return;
-        }
-        if (selectLoaiPhong === '') {
-            Alert.alert("Thông báo", "Tên loại phòng không được để trống")
-            return;
-
-        }
-        if (selectLoaiPhong === null) {
-            Alert.alert("Thông báo", "Tên loại phòng không được để trống")
-            return;
-
-        }
-        console.log("Phòng: " + tenPhong + " / " + tinhTrang + " / " + selectLoaiPhong + " / " + tienThueTheoGio + " / " + tienThueTheoNgay)
-
-        fetch(`http://${hostname}:3000/insertPhong`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(phong),
-        })
-
-        getListPhong();
-        setModalVisible(!modalVisible)
-        Alert.alert("Thêm thành công");
-        setTenPhong("");
-        setTienThueTheoGio("");
-        setTienThueTheoNgay("");
-        setSelectLoaiPhong(null);
-        setTinhTrang("Yes")
-        
-    }
-
-    //lấy danh sách phòng
-    const getListPhong = () => {
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-
-        fetch(`http://${hostname}:3000/getPhong`, requestOptions)
-            .then(response => response.json())
-            .then(res => {
-                if (res) {
-                    console.log(res)
-                    setListPhong(res)
-                    setOldListPhong(res)
-                    setLoading(false)
-                }
-
-            })
-            .catch(error => console.log('error', error));
-    }
-    //lấy loại phòng đổ lên picker
-    const getLoaiPhong = () => {
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-
-        fetch(`http://${hostname}:3000/getLoaiPhong`, requestOptions)
-            .then(response => response.json())
-            .then(response => {
-                console.log("Result " + response)
-                if (response) {
-                    setMaLoaiPhong(response)
-
-                }
-            })
-            .catch(error => console.log('error', error));
-    }
-    const getTheoLoaiPhong = (_id) => {
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-
-        fetch(`http://${hostname}:3000/getTheoLoaiPhong/${_id}`, requestOptions)
-            .then(response => response.json())
-            .then(res => {
-                if (res) {
-                    console.log(res)
-                    setListPhong(res)
-                    setOldListPhong(res)
-                    setLoading(false)
-                }
-
-            })
-            .catch(error => console.log('error', error));
-    }
-
-   
-    const edit = (id, tenPhong, selectLoaiPhong, tienThueTheoGio, tienThueTheoNgay) => {
-        // setModalVisible(!modalVisible)
-       
-        setId(id)
-        setTenPhong(tenPhong)
-        setSelectLoaiPhong(selectLoaiPhong._id)
-        setTienThueTheoGio(tienThueTheoGio)
-        setTienThueTheoNgay(tienThueTheoNgay)
-
-    }
-
-    //update phong
-    const updatePhong = () => {
-
-        const phong = {
-            tenPhong: tenPhong,
-            tinhTrang: tinhTrang,
-            maLoaiPhong: selectLoaiPhong,
-            tienThueTheoGio: tienThueTheoGio,
-            tienThueTheoNgay: tienThueTheoNgay
-        }
-        if (tenPhong.length == 0) {
-            Alert.alert("Thông báo", "Tên phòng không được để trống")
-            return;
-        }
-        if (tienThueTheoGio.length == 0) {
-            Alert.alert("Thông báo", "Tiền thuê theo giờ không được để trống")
-            return;
-        }
-        if (tienThueTheoNgay.length == 0) {
-            Alert.alert("Thông báo", "Tiền thuê theo ngày không được để trống")
-            return;
-        }
-        if (maLoaiPhong == null) {
-            Alert.alert("Thông báo", "Mã loại phòng không được để trống")
-            return;
-        }
-        if (selectLoaiPhong === '') {
-            Alert.alert("Thông báo", "Tên loại phòng không được để trống")
-            return;
-        }
-        if (selectLoaiPhong === null) {
-            Alert.alert("Thông báo", "Tên loại phòng không được để trống")
-            return;
-        }
-
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-
-        var requestOptions = {
-            method: 'PUT',
-            headers: myHeaders,
-            body: JSON.stringify(phong),
-
-        };
-
-        fetch(`http://${hostname}:3000/updatePhong/${_id}`, requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                getListPhong();
-                setModalVisible(!modalVisible)
-                Alert.alert("Sửa thành công");
-                setId(0)
-                setTenPhong("");
-                setTienThueTheoGio("");
-                setTienThueTheoNgay("");
-                setTinhTrang("Yes");
-                
-                setSelectLoaiPhong(null);
-                
-            })
-            .catch(error => console.log('error', error));
-            
-            
-
-    }
-
-    //delete phong
-    const deletePhong = () => {
-        var requestOptions = {
-            method: 'DELETE',
-            redirect: 'follow'
-        };
-
-        fetch(`http://${hostname}:3000/deletePhong/${_id}`, requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                getListPhong()
-            })
-            .catch(error => console.log('error', error));
-    }
-
-
-
-    //tự đổ dữ liệu
-    useEffect(() => {
-        getListPhong()
-        getLoaiPhong()
-        console.log("Mã loại phòng" + maLoaiPhong)
-    }, [])
+  
 
     return (
         <SafeAreaView style={styles.container}>
@@ -298,16 +58,13 @@ export default function QuanLyPhong({ navigation }) {
                         mode="outlined"
                         value={search}
                         onChangeText={(text) => {
-                            onSearch(text);
-                            setSearch(text);
+                            
                         }}
                     />
                     {search == "" ? null : (
                         <TouchableOpacity
                             style={{ marginRight: 15 }}
-                            onPress={() => {
-                                setSearch("");
-                            }}
+                            onPress={() => {}}
                         >
                             <Text>X</Text>
                         </TouchableOpacity>
@@ -322,7 +79,6 @@ export default function QuanLyPhong({ navigation }) {
                         keyExtractor={(item) => item._id}
                         renderItem={({ item }) => (
                             <TouchableOpacity onPress={() => {
-                                getTheoLoaiPhong(item._id)
                             }}>
                                 <Text style={{ borderWidth: 1, paddingTop: 3, paddingBottom: 3, paddingLeft: 10, paddingRight: 10, marginRight: 15, borderRadius: 20, backgroundColor: '#fff' }}>{item.tenLoaiPhong}</Text>
                             </TouchableOpacity>
@@ -334,7 +90,6 @@ export default function QuanLyPhong({ navigation }) {
 
                 <FlatList
                     keyExtractor={(item, index) => item._id}
-                    onRefresh={() => getListPhong()}
                     refreshing={loading}
                     style={{ marginTop: 5, width: '95%' }}
                     data={listPhong}
@@ -461,98 +216,11 @@ export default function QuanLyPhong({ navigation }) {
                                         {/* view button  */}
                                         <TouchableOpacity
                                             style={styles.button}
-                                            onPress={() => {
-                                                if (_id && tenPhong && tinhTrang && maLoaiPhong && tienThueTheoGio && tienThueTheoNgay) {
-                                                    // nếu _id , name , namSinh == true trùng với dữ liệu th
-                                                    updatePhong();
-                                                } else {
-                                                    insertPhong();
-                                                }
-                                            }}
+                                            onPress={() => {}}
                                         >
                                             <Text style={{ color: "#fff", fontWeight:'bold' }}>Lưu</Text>
                                         </TouchableOpacity>
-                                        {/* <View
-                                            style={{
 
-                                                flexDirection: "row",
-                                                width: "100%",
-                                                justifyContent: "space-evenly",
-                                            }}
-                                        >
-                                            <TouchableOpacity
-                                                title={btnLeft}
-                                                visible="false"
-                                                onPress={() => {
-                                                    // _id, selectedLoai, tenSach, giaThue
-                                                    if (_id && tenPhong && tinhTrang && maLoaiPhong && tienThueTheoGio && tienThueTheoNgay) {
-                                                        // nếu _id , name , namSinh == true trùng với dữ liệu th
-                                                        updatePhong();
-                                                    } else {
-                                                        insertPhong();
-                                                    }
-                                                }}
-                                                style={[styles.button, styles.buttonClose]}
-                                                color="#009ACD"
-                                            >
-                                                <Text style={{ fontWeight: 'bold', fontSize: 15, color: '#fff' }}>{btnLeft}</Text>
-                                            </TouchableOpacity>
-                                            <TouchableOpacity
-                                                title={btnRight}
-                                                onPress={() => {
-                                                    setTenPhong("");
-                                                    setTienThueTheoGio("");
-                                                    setTienThueTheoNgay("");
-
-                                                    if (_id) {
-                                                        Alert.alert(
-                                                            //title
-                                                            "Thông Báo!",
-                                                            //body
-                                                            "Bạn có chắc chắn muốn xóa không?",
-                                                            [
-                                                                {
-                                                                    text: "Có",
-                                                                    onPress: () => {
-                                                                        // handleRemove(item._id)
-                                                                        deletePhong(_id);
-                                                                    },
-                                                                },
-                                                                {
-                                                                    text: "Không",
-                                                                    onPress: () => {
-                                                                        setModalVisible(!modalVisible);
-                                                                        setId(0);
-                                                                        setTenPhong("");
-                                                                        setTienThueTheoGio("");
-                                                                        setTienThueTheoNgay("");
-
-                                                                        setBtnLeft("");
-                                                                        setBtnRight("");
-                                                                    },
-                                                                    style: "cancel",
-                                                                },
-                                                            ],
-                                                            { cancelable: false }
-                                                        );
-                                                        setModalVisible(false);
-                                                    } else {
-                                                        setModalVisible(!modalVisible);
-                                                        setId(0);
-                                                        setTenPhong("");
-                                                        setTienThueTheoGio("");
-                                                        setTienThueTheoNgay("");
-                                                        setBtnLeft("");
-                                                        setBtnRight("");
-                                                    }
-                                                }}
-                                                color="#009ACD"
-                                                style={[styles.button, styles.buttonClose]}
-                                            >
-                                                <Text style={{ fontWeight: 'bold', fontSize: 15, color: '#fff' }}>{btnRight}</Text>
-                                            </TouchableOpacity>
-
-                                        </View> */}
                                     </View>
                                 </TouchableWithoutFeedback>
                             </View>
@@ -567,12 +235,7 @@ export default function QuanLyPhong({ navigation }) {
                     visible={showDialogChucNang}
                     onRequestClose={() => {
                         this.setShowDiaLogChucNang(false);
-                        setId(0)
-                        setTenPhong("");
-                        setTienThueTheoGio("");
-                        setTienThueTheoNgay("");
-                        setTinhTrang("");
-                        setSelectLoaiPhong(null);
+                    
                     }}
                     onBackdropPress={false}
                     style={styles.cardView}
@@ -588,12 +251,7 @@ export default function QuanLyPhong({ navigation }) {
                         <TouchableWithoutFeedback
                             onPressOut={() => {
                                 setShowDiaLogChucNang(false);
-                                setId(0)
-                                setTenPhong("");
-                                setTienThueTheoGio("");
-                                setTienThueTheoNgay("");
-                                setTinhTrang("");
-                                setSelectLoaiPhong(null);
+                              
                             }}
                             style={{ backgroundColor: "#fff" }}
                         >
@@ -630,11 +288,7 @@ export default function QuanLyPhong({ navigation }) {
                                                             text: "Không",
                                                             onPress: () => {
                                                                 setId(0)
-                                                                setTenPhong("");
-                                                                setTienThueTheoGio("");
-                                                                setTienThueTheoNgay("");
-                                                                setTinhTrang("");
-                                                                setSelectLoaiPhong(null);
+                                                              
                                                                 setModalVisible(false);
                                                             },
                                                             style: "cancel",
@@ -655,7 +309,6 @@ export default function QuanLyPhong({ navigation }) {
                                                     setModalVisible(!modalVisible);
                                                     setTitle("Sửa Thông Tin Phòng")
                                                     setShowDiaLogChucNang(!showDialogChucNang);
-                                                    edit(_id, tenPhong, maLoaiPhong, tienThueTheoGio, tienThueTheoNgay);
                                                 }
                                             }}
                                         >
@@ -684,11 +337,6 @@ export default function QuanLyPhong({ navigation }) {
                         onPress={() => {
                             setModalVisible(true);
                             setTitle("Thêm Thông Tin Phòng")
-                            setId(0)
-                            setTenPhong("");
-                            setTienThueTheoGio("");
-                            setTienThueTheoNgay("");
-                            setTinhTrang("");
                             setSelectLoaiPhong(null);
                         }}
                     >

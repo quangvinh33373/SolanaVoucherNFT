@@ -10,6 +10,7 @@ import {
   import React, { useState, useEffect } from "react";
   import { StatusBar } from "expo-status-bar";
   import AsyncStorage from "@react-native-async-storage/async-storage";
+  import ManHinhLogin from "./ManHinhLogin";
   
   export default function ManHinhSignUp(props) {
     const [userName, setUsername] = useState("");
@@ -17,8 +18,8 @@ import {
     const [chucVu, setChucVu] = useState("Quản lý");
     const [listNhanVien, setListNhanVien] = useState([]);
   
-    const login = async () => {
-      props.navigation.navigate("Menu");
+    const signup = async () => {
+      props.navigation.navigate("Login");
     };
   
     return (
@@ -31,9 +32,6 @@ import {
         />
         <View style={{ flexDirection: "column", margin: 10, padding: 20 }}>
           {/* form header  */}
-          <Text style={{ fontSize: 36, color: "#35C2C1", fontWeight: "bold" }}>
-            Welcome Back!
-          </Text>
           <Text
             style={{
               fontSize: 30,
@@ -47,6 +45,22 @@ import {
   
           {/* input username  */}
           <Text style={{ fontSize: 14, color: "#35C2C1" }}>Username*</Text>
+          <TextInput
+            style={{
+              borderWidth: 1,
+              borderRadius: 10,
+              borderColor: "#35C2C1",
+              height: 40,
+              padding: 10,
+              marginBottom: 15,
+            }}
+            onChangeText={(txt) => {
+              setUsername(txt);
+            }}
+          />
+
+           {/* input email */}
+           <Text style={{ fontSize: 14, color: "#35C2C1" }}>Email*</Text>
           <TextInput
             style={{
               borderWidth: 1,
@@ -74,18 +88,23 @@ import {
               setPassword(txt);
             }}
           />
-  
-          {/* text remember  */}
-          <Text
+
+           {/* input repassword  */}
+           <Text style={{ fontSize: 14, color: "#35C2C1" }}>RePassword*</Text>
+          <TextInput
             style={{
-              fontSize: 14,
-              color: "#35C2C1",
-              alignSelf: "flex-end",
-              fontWeight: "bold",
+              borderWidth: 1,
+              borderRadius: 10,
+              borderColor: "#35C2C1",
+              height: 40,
+              padding: 10,
             }}
-          >
-            Forgot Password?
-          </Text>
+            onChangeText={(txt) => {
+              setPassword(txt);
+            }}
+          />
+  
+        
           <TouchableOpacity
             style={{
               width: "30%",
@@ -96,11 +115,11 @@ import {
               marginTop: 15,
             }}
             onPress={() => {
-              login();
+              signup();
             }}
           >
             <Text style={{ color: "#fff", fontSize: 18, fontWeight: "bold" }}>
-              Login
+              SignUp
             </Text>
           </TouchableOpacity>
         </View>
@@ -110,32 +129,7 @@ import {
             source={require("../assets/Rectangle_3-removebg-preview.png")}
           />
         </View>
-        <View style={styles.signOut}>
-          <Text
-            style={{ color: "#C2BEBE", fontSize: 18 }}
-            text="Bạn chưa có tài khoản?  "
-            // styles={{color: '#C2BEBE', fontSize: 18}}
-          />
-          <View style={styles.signOut}>
-            <Text style={{ color: "#C2BEBE", fontSize: 18 }}>
-              Bạn chưa có tài khoản?{" "}
-            </Text>
-            <TouchableOpacity
-              onPress={() => props.navigation.navigate("RegisterStoreScreen")}
-            >
-              <Text
-                style={{
-                  fontSize: 18,
-                  textDecorationLine: "underline",
-                  fontWeight: "bold",
-                  color: "#007bff",
-                }}
-              >
-                Đăng ký
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+       
   
         <StatusBar hidden={true} />
       </View>

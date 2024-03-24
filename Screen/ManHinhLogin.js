@@ -21,6 +21,9 @@ export default function ManHinhLogin(props) {
   const login = async () => {
     props.navigation.navigate("Menu");
   };
+  const changeScreen = async () => {
+    props.navigation.navigate("ManHinhSignUp");
+  };
 
   return (
     <View style={styles.container}>
@@ -83,6 +86,7 @@ export default function ManHinhLogin(props) {
             color: "#35C2C1",
             alignSelf: "flex-end",
             fontWeight: "bold",
+            paddingTop:20
           }}
         >
           Forgot Password?
@@ -94,7 +98,7 @@ export default function ManHinhLogin(props) {
             alignItems: "center",
             borderRadius: 10,
             padding: 7,
-            marginTop: 15,
+            marginTop: 1,
           }}
           onPress={() => {
             login();
@@ -104,14 +108,9 @@ export default function ManHinhLogin(props) {
             Login
           </Text>
         </TouchableOpacity>
-      </View>
-      <View style={{ flex: 1 }}>
-        <Image
-          style={{ width: "100%" }}
-          source={require("../assets/Rectangle_3-removebg-preview.png")}
-        />
-      </View>
-      <View style={styles.signOut}>
+
+          {/* nút đăng ký */}
+          <View style={styles.signOut}>
         <Text
           style={{ color: "#C2BEBE", fontSize: 18 }}
           text="Bạn chưa có tài khoản?  "
@@ -122,7 +121,7 @@ export default function ManHinhLogin(props) {
             Bạn chưa có tài khoản?{" "}
           </Text>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate("ManHinhSignUp")}
+            onPress={changeScreen}
           >
             <Text
               style={{
@@ -137,6 +136,17 @@ export default function ManHinhLogin(props) {
           </TouchableOpacity>
         </View>
       </View>
+      </View>
+
+      
+      <View style={{ flex: 1 }}>
+        <Image
+          style={{ width: "100%" }}
+          source={require("../assets/Rectangle_3-removebg-preview.png")}
+        />
+      </View>
+
+    
 
       <StatusBar hidden={true} />
     </View>

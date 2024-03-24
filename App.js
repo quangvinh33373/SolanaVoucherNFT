@@ -8,7 +8,8 @@ const Stack = createNativeStackNavigator();
 import ManHinhChao from './Screen/ManHinhChao';
 import ManHinhLogin from './Screen/ManHinhLogin';
 import ManHinhChinh  from './Screen/ManHinhChinh';
-import QuanLyPhong from './Screen/QuanLyPhong';
+import ManHinhSignUp from './Screen/ManHinhSignUp';
+import QuanLyVoucher from './Screen/QuanLyVoucher';
 import DrawerNavigation from './Screen/DrawerNavigation';
 
 export default function App() {
@@ -17,12 +18,10 @@ export default function App() {
       <Stack.Navigator initialRouteName='Màn Hình Chào' screenOptions={{ headerShown: false, gestureEnabled: false }}>
         <Stack.Screen name='Màn Hình Chào' component={ManHinhChao} />
         
-        <Stack.Screen name='Màn Hình Đăng Nhập' component=
-        {ManHinhLogin}/>
-        {/* <Stack.Screen name='Màn Hình Chính' component= {ManHinhChinh}
-        options={{ headerShown: false, gestureEnabled: false }}/>
+        <Stack.Screen name='Login' component={ManHinhLogin}/>
 
-        <Stack.Screen name='Quản Lý Phòng' component={QuanLyPhong} options={{ headerShown: false, gestureEnabled: false }}/> */}
+          <Stack.Screen name='ManHinhSignUp' component={ManHinhSignUp}/>
+        
         <Stack.Screen name='Menu' component={DrawerNavigation}
         />
 
