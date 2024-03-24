@@ -8,15 +8,11 @@ var indexRouter = require('./routes/index');
 
 var loginRouter = require('./routes/login');
 
-
-var homeAdmin = require('./routes/homeAdmin');
-var addVoucher = require('./routes/addVoucher');
-var updateVoucher = require('./routes/updateVoucher');
-var qlyVcherAdmin = require('./routes/qlyVcher');
+;
+var qlyVcher = require('./routes/qlyVcher');
 var qlyKH = require('./routes/qlyKH');
 
 
-var updatekhachhangrouter = require('./routes/updateKH');
 
 
 var app = express();
@@ -35,15 +31,15 @@ app.use('/', indexRouter);
 
 app.use('/login', loginRouter);
 
-app.use('/homeAdmin', homeAdmin);
-app.use('/addVoucher', addVoucher);
-app.use('/updateVoucher', updateVoucher);
+
+
+
 app.use('/qlyKH', qlyKH);
 
-app.use('/qlyVcher', qlyVcherAdmin);
+app.use('/qlyVcher', qlyVcher);
 
 
-app.use('/updatekhachhang', updatekhachhangrouter);
+
 
 
 

@@ -2,209 +2,433 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trang Chủ</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f8f9fa; /* Màu nền của trang */
-    }
-
-    .navbar {
-      background-color: #007bff; /* Màu nền của thanh điều hướng */
-      color: #ffffff; /* Màu chữ của thanh điều hướng */
-    }
-
-    .navbar-brand {
-      font-weight: bold;
-    }
-
-    .nav-link {
-      color: #ffffff; /* Màu chữ của các liên kết */
-    }
-
-    .search-form {
-      position: absolute;
-      top: 50%;
-      right: 20px;
-      transform: translateY(-50%);
-    }
-
-    .container {
-      margin-top: 20px;
-    }
-
-    .jumbotron {
-      background-color: #ffffff; /* Màu nền của phần nổi bật */
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
-    }
-
-    .card {
-      margin-bottom: 20px;
-    }
-
-    .card-title {
-      font-weight: bold;
-    }
-
-    .footer {
-      background-color: #007bff; /* Màu nền của footer */
-      color: #ffffff; /* Màu chữ của footer */
-      padding: 10px 0;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-
-    /* Định dạng cho trang giữa */
-    .middle-content {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 60vh; /* Đảm bảo nó không quá ngắn */
-    }
-    .voucherAdmin {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-    .voucherAdmin img {
-        width: 100px;
-        margin-right: 20px;
-    }
-    .voucherAdmin .details {
-        flex-grow: 1;
-
-    }
-    .update-dialog {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+      <style>
+        body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background-color: #f8f9fa; /* Màu nền của trang */
         }
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
+    
+        .navbar {
+          background-color: #007bff; /* Màu nền của thanh điều hướng */
+          color: #ffffff; /* Màu chữ của thanh điều hướng */
         }
-  </style>
+    
+        .navbar-brand {
+          font-weight: bold;
+        }
+    
+        .nav-link {
+          color: #ffffff; /* Màu chữ của các liên kết */
+        }
+    
+        .search-form {
+          position: absolute;
+          top: 50%;
+          right: 20px;
+          transform: translateY(-50%);
+        }
+    
+        .container {
+          margin-top: 20px;
+        }
+    
+        .jumbotron {
+          background-color: #ffffff; /* Màu nền của phần nổi bật */
+          padding: 2rem;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+        }
+    
+        .card {
+          margin-bottom: 20px;
+        }
+    
+        .card-title {
+          font-weight: bold;
+        }
+    
+        .footer {
+          background-color: #007bff; /* Màu nền của footer */
+          color: #ffffff; /* Màu chữ của footer */
+          padding: 10px 0;
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+        }
+    
+        /* Định dạng cho trang giữa */
+        .middle-content {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 60vh; /* Đảm bảo nó không quá ngắn */
+        }
+        .voucherAdmin {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .voucherAdmin img {
+            width: 100px;
+            margin-right: 20px;
+        }
+        .voucherAdmin .details {
+            flex-grow: 1;
+        }
+        .search-container {
+    margin-top: 20px;
+    text-align: center;
+  }
+  .search-box {
+    width: 300px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  .search-button {
+    padding: 8px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .search-button img {
+    width: 20px; /* Điều chỉnh kích thước của hình ảnh kính lúp */
+    height: 20px;
+    margin-right: 8px; /* Tạo khoảng cách giữa hình ảnh và văn bản */
+  }
+  .add-customer-button {
+    position: fixed; /* Đặt vị trí cố định */
+    top: 130px; /* Khoảng cách từ trên cùng của trang */
+    right: 20px; /* Khoảng cách từ phải của trang */
+    padding: 10px 20px; /* Kích thước của nút */
+    background-color: #4CAF50; /* Màu nền của nút */
+    color: white; /* Màu chữ của nút */
+    border: none; /* Loại bỏ viền */
+    border-radius: 4px; /* Đường cong góc của nút */
+    cursor: pointer; /* Con trỏ chuột khi di chuyển qua nút */
+    font-size: 16px; /* Cỡ chữ */
+  }
+      </style>
+    </head>
+    
+    <body>
+    
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+          <a class="navbar-brand" href="#">Voucherswap</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              
+              <li class="nav-item">
+                <a class="nav-link" href="/qlyVcher">Quản lý Voucher</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/qlyKH">Quản lý khách hàng</a>
+              </li>
+            </ul>
+          </div>
+    
+          <!-- Thanh tìm kiếm -->
+          <div class="search-container">
+            <input type="text" placeholder="Nhập từ khóa..." class="search-box">
+           
+          </div>
+        
+      </nav>
 </head>
 
-<body>
-
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-      <a class="navbar-brand" href="#">Voucherswap</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="#home">Trang Chủ</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#voucher">Voucher</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#profile">Quản lý người dùng</a>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Thanh tìm kiếm -->
-      <div class="search-form">
-        <input type="text" placeholder="Tìm kiếm...">
-      </div>
-    </div>
-    <title></title>
-    <div class="voucher">
-      <img src="cinqueterre.jpg"  alt="Cinque Terre">
-      
-    </div>
+<body class="m-0 p-0 container-fluid">
     
-  </nav>
-  <h1>Danh sách mã giảm giá</h1>
- 
-<% voucherAdmin.forEach(voucherAdmin => { %>
-  <div class="voucherAdmin">
-      <img src="/images/<%= voucherAdmin.photo %>" alt="<%= voucherAdmin.name %>">
-      <div class="details">
-          <h3><%= voucherAdmin.name %></h3>
-          <p>Date: <%= voucherAdmin.date %></p>
-          <p>Quantity: <%= voucherAdmin.quantity %></p>
-          <form action="/products/update/<%= product._id %>" method="GET">
-            <button type="submit">Update</button>
+        <div class="m-4">
+            <h1 style=" text-align: center;margin-left:20px">Danh sách Voucher</h1>
+           
+            <% if(listStaff) {%>
+                <table class="table table-hover table-bordered mt-2" style=" text-align: center">
+                    <thead>
+                        <tr class="text-center">
+                            
+                            <th  scope="col">ImgVoucher</th>
+                            <th scope="col">Mã</th>
+                            <th scope="col">Hạn sử dụng</th>
+                            <th scope="col">Hạn mức</th>
 
-            <div class="modal" id="modal_{{this._id}}">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                      <h4 class="modal-title">Bạn có chắc là muốn xóa không</h4>
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                      ></button>
-                    </div>
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                      {{this.tenVoucher}}
-                    
-      
-                    </div>
-                    <!-- Modal footer -->
-                    <div class="modal-footer col-auto">
-                      <a
-                        type="button"
-                        class="btn btn-danger"
-                        href="/Voucher/deleteVoucher/{{this._id}}"
-                      >Yes</a>
-                      <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                      >No</button>
-                    </div>
-                  </div>
+                            <th scope="col">Loại</th>
+                            <th></th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% listStaff.forEach((item)=> {
+                            %>
+
+                            <tr class="align-middle">
+                                
+                                <td>
+                                      <img src="<%= item.imgVoucher %>" alt="<%= item.imgVoucher %>">
+                                </td>
+
+                                <td>
+                                    <%= item.maVoucher %>
+                                </td>
+                                <td scope="row">
+                                   <%= item.hanSd %>
+                                </td>
+                                <td scope="row">
+                                  <%= item.hanmuc %>
+                               </td>
+                                <td scope="row">
+                                   <%= item.Loai %>
+                                </td>
+                                
+                               
+                                
+                                <td class="text-center">
+                                    
+                                    <button data-item-id="<%= item.id %>" 
+                                     data-item-imgVoucher="<%= item.imgVoucher %>" 
+                                        data-item-maVoucher="<%= item.maVoucher %>"
+                                        data-item-hanSd="<%= item.hanSd %>"
+                                        data-item-hanmuc="<%= item.hanmuc %>"
+
+                                        data-item-Loai="<%= item.Loai %>" 
+                                        
+                                        type="button" class="btn btn-success " data-bs-toggle="modal" data-bs-target="#updateModal" >Edit</button>
+
+                                    <button data-item-id="<%= item.id %>" data-item-name="<%= item.maVoucher %>"
+                                        class="btn btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal">Delete</button>
+                                </td>
+                             
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+                <% }else{ %>
+                    <h3>Không có dữ liệu</h3>
+                    <% } %>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="m-0">Showing:10/100 items</p>
+                            <nav aria-label="Page navigation example" class="">
+                                <ul class="pagination m-0">
+                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+        </div>
+        <div><button type="button" class="add-customer-button" data-bs-toggle="modal" data-bs-target="#addModal">Add Voucher</button></div>
+
+       
+        
+        <!-- Modal Edit-->
+        <div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+   <div class="modal-content">
+     <div class="modal-header">
+         <h1 class="modal-title fs-5" id="updateModalLabel">Update Voucher</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+     </div>
+                    <form id="updateForm" action="/qlyVcher/updateVoucher" method="POST" >
+
+                      <div class="modal-body">
+                        <div class="input-group" style="margin-top: 10px;">
+                          <label for="avatar" class="input-group-text" >imgVoucher</label>
+                          <input name="imgVoucher"  id="imgVoucher" type="text" aria-label="First name" class="form-control">
+                                   </div>
+                                    <div class="input-group" style="margin-top: 10px;">
+                                    <label for="maVoucher" class="input-group-text" >maVoucher</label>
+                                    <input name="maVoucher"  id="maVoucher" type="text" aria-label="First name" class="form-control">
+                                   </div>
+        
+                                   <div class="input-group" style="margin-top: 10px;">
+                                    <label for="hanSd" class="input-group-text" >Hạn sử dụng</label>
+                                    <input name="hanSd"  id="hanSd" type="text" aria-label="First name" class="form-control">
+                                   </div>
+                                   <div class="input-group" style="margin-top: 10px;">
+                                    <label for="hanmuc" class="input-group-text" >Hạn mức</label>
+                                    <input name="hanmuc"  id="hanmuc" type="text" aria-label="First name" class="form-control">
+                                   </div>
+        
+                                   <div class="input-group" style="margin-top: 10px;">
+                                    <label for="Loai" class="input-group-text" >Loại</label>
+                                    <input name="Loai"  id="Loai" type="text" aria-label="First name" class="form-control">
+                                   </div>
+                          
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Save</button>
+                      </div>
+                    </form>
                 </div>
-              </div>
-        </form>
-<% }); %>
+            </div>
+        </div>
 
-  
+        <!-- Modal delete -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Voucher</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="qlyVcher/deleteVoucher" method="post">
+                        <div class="modal-body">
+                            Bạn chắc chắn muốn xóa?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                            <button type="submit" class="btn btn-primary">Yes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-  <footer class="footer text-center">
-    <p>&copy; 2024 Tên Trang Web. All rights reserved.</p>
-  </footer>
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
+        <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+           <div class="modal-content">
+             <div class="modal-header">
+                 <h1 class="modal-title fs-5" id="addModalLabel">Add Voucher</h1>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+                            <form id="addForm" action="/qlyVcher/addVoucher" method="POST" >
+                              <div class="modal-body">
+                                <div class="input-group" style="margin-top: 10px;">
+                                  <label for="avatar" class="input-group-text" >imgVoucher</label>
+                                  <input name="imgVoucher"  id="imgVoucher" type="text" aria-label="First name" class="form-control">
+                                           </div>
+                                            <div class="input-group" style="margin-top: 10px;">
+                                            <label for="maVoucher" class="input-group-text" >maVoucher</label>
+                                            <input name="maVoucher"  id="maVoucher" type="text" aria-label="First name" class="form-control">
+                                           </div>
+                
+                                           <div class="input-group" style="margin-top: 10px;">
+                                            <label for="hanSd" class="input-group-text" >Hạn sử dụng</label>
+                                            <input name="hanSd"  id="hanSd" type="text" aria-label="First name" class="form-control">
+                                           </div>
+                                           <div class="input-group" style="margin-top: 10px;">
+                                            <label for="hanmuc" class="input-group-text" >Hạn mức</label>
+                                            <input name="hanmuc"  id="hanmuc" type="text" aria-label="First name" class="form-control">
+                                           </div>
+                
+                                           <div class="input-group" style="margin-top: 10px;">
+                                            <label for="Loai" class="input-group-text" >Loại</label>
+                                            <input name="Loai"  id="Loai" type="text" aria-label="First name" class="form-control">
+                                           </div>
+                                  
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Save</button>
+                              </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+    
+
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+                integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+                crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+                integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+                crossorigin="anonymous"></script>
+            
+
+            <script>
+                const editButtons = document.querySelectorAll('.btn.btn-success');
+                const editModal = new bootstrap.Modal(document.getElementById('updateModal'));
+                const editForm = document.getElementById('updateForm');
+
+                // Bắt sự kiện khi nút "Edit" được nhấn
+                editButtons.forEach(button => {
+                    button.addEventListener('click', function () {
+                        // Lấy giá trị item_id và item_name từ thuộc tính dữ liệu (data attribute)
+                        const itemId = this.getAttribute('data-item-id');
+
+                        const itemImgVoucher = this.getAttribute('data-item-imgVoucher');
+                        const itemMaVoucher = this.getAttribute('data-item-maVoucher');
+                        const itemHanSd = this.getAttribute('data-item-hanSd');
+                        const itemHanmuc = this.getAttribute('data-item-hanmuc');
+
+                        const itemLoai = this.getAttribute('data-item-Loai');
+                        
+
+                      
+
+                       
+                        // Truy xuất phần tử trong modal để cập nhật nội dung
+                        const modalBody = editModal._element.querySelector('.modal-body');
+                        const ImgVoucherInput = editForm.querySelector('#imgVoucher');
+                       
+
+                        const MaVoucherInput = editForm.querySelector('#maVoucher');
+                        const HanSdInput = editForm.querySelector('#hanSd');
+                        const HanmucInput = editForm.querySelector('#hanmuc');
+                        const LoaiInput = editForm.querySelector('#Loai');
+
+
+                        // Cập nhật nội dung modal và input với item_id và item_name tương ứng
+                        ImgVoucherInput.value = itemImgVoucher;
+                        MaVoucherInput.value = itemMaVoucher;
+                        HanSdInput.value = itemHanSd;
+                        HanmucInput.value=itemHanmuc;
+                        LoaiInput.value=itemLoai;
+                        // Thay đổi giá trị của thuộc tính action của form khi nút "Edit" được nhấn
+                        editForm.action = `/qlyVcher/updateVoucher/${itemId}`;
+                    });
+                });
+            </script>
+
+
+            
+            <script>
+                const deleteButtons = document.querySelectorAll('.btn.btn-danger');
+                const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+                const deleteForm = document.querySelector('form[action="qlyVcher/deleteVoucher"]');
+
+                // Bắt sự kiện khi nút "Delete" được nhấn
+                deleteButtons.forEach(button => {
+                    button.addEventListener('click', function () {
+                        // Lấy giá trị item_id từ thuộc tính dữ liệu (data attribute)
+                        const itemId = this.getAttribute('data-item-id');
+                        const itemName = this.getAttribute('data-item-name');
+                        // Truy xuất phần tử trong modal để cập nhật nội dung
+                        const modalBody = deleteModal._element.querySelector('.modal-body');
+                        // Cập nhật nội dung modal với item_id tương ứng
+                        // modalBody.textContent = `Do you want to delete the product named "${itemName}"?`;
+
+                        // Thay đổi giá trị của thuộc tính action của form khi nút "Delete" được nhấn
+                        deleteForm.action = `qlyVcher/deleteVoucher/${itemId}`;
+                    });
+                });
+            </script>
+
+            
+
+   
+
 
 </body>
+
 
 </html>

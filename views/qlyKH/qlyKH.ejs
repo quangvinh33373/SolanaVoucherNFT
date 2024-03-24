@@ -1,18 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-  
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+      <style>
+        body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background-color: #f8f9fa; /* Màu nền của trang */
+        }
+    
+        .navbar {
+          background-color: #007bff; /* Màu nền của thanh điều hướng */
+          color: #ffffff; /* Màu chữ của thanh điều hướng */
+        }
+    
+        .navbar-brand {
+          font-weight: bold;
+        }
+    
+        .nav-link {
+          color: #ffffff; /* Màu chữ của các liên kết */
+        }
+    
+        .search-form {
+          position: absolute;
+          top: 50%;
+          right: 20px;
+          transform: translateY(-50%);
+        }
+    
+        .container {
+          margin-top: 20px;
+        }
+    
+        .jumbotron {
+          background-color: #ffffff; /* Màu nền của phần nổi bật */
+          padding: 2rem;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+        }
+    
+        .card {
+          margin-bottom: 20px;
+        }
+    
+        .card-title {
+          font-weight: bold;
+        }
+    
+        .footer {
+          background-color: #007bff; /* Màu nền của footer */
+          color: #ffffff; /* Màu chữ của footer */
+          padding: 10px 0;
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+        }
+    
+        /* Định dạng cho trang giữa */
+        .middle-content {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 60vh; /* Đảm bảo nó không quá ngắn */
+        }
+        .voucherAdmin {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .voucherAdmin img {
+            width: 100px;
+            margin-right: 20px;
+        }
+        .voucherAdmin .details {
+            flex-grow: 1;
+        }
+        .search-container {
+    margin-top: 20px;
+    text-align: center;
+  }
+  .search-box {
+    width: 300px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  .search-button {
+    padding: 8px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .search-button img {
+    width: 20px; /* Điều chỉnh kích thước của hình ảnh kính lúp */
+    height: 20px;
+    margin-right: 8px; /* Tạo khoảng cách giữa hình ảnh và văn bản */
+  }
+  .add-customer-button {
+    position: fixed; /* Đặt vị trí cố định */
+    top: 130px; /* Khoảng cách từ trên cùng của trang */
+    right: 20px; /* Khoảng cách từ phải của trang */
+    padding: 10px 20px; /* Kích thước của nút */
+    background-color: #4CAF50; /* Màu nền của nút */
+    color: white; /* Màu chữ của nút */
+    border: none; /* Loại bỏ viền */
+    border-radius: 4px; /* Đường cong góc của nút */
+    cursor: pointer; /* Con trỏ chuột khi di chuyển qua nút */
+    font-size: 16px; /* Cỡ chữ */
+  }
+      </style>
+    </head>
+    
+    <body>
+    
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+          <a class="navbar-brand" href="#">Voucherswap</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              
+              <li class="nav-item">
+                <a class="nav-link" href="/qlyVcher">Quản lý Voucher</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/qlyKH">Quản lý khách hàng</a>
+              </li>
+            </ul>
+          </div>
+    
+          <!-- Thanh tìm kiếm -->
+          <div class="search-container">
+            <input type="text" placeholder="Nhập từ khóa..." class="search-box">
+           
+          </div>
+        
+      </nav>
 </head>
+
 
 <body class="m-0 p-0 container-fluid">
     
         <div class="m-4">
-            <h1 style=" text-align: center;margin-left:20px">DANH SÁCH Khách hàng</h1>
+            <h1 style=" text-align: center;margin-left:20px">Danh sách khách hàng</h1>
            
             <% if(listStaff) {%>
                 <table class="table table-hover table-bordered mt-2" style=" text-align: center">
@@ -91,7 +233,7 @@
                             </nav>
                         </div>
         </div>
-        <div><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">add</button></div>
+        <div><button type="button" class="add-customer-button" data-bs-toggle="modal" data-bs-target="#addModal">Add khách hàng</button></div>
        
         
         <!-- Modal Edit-->

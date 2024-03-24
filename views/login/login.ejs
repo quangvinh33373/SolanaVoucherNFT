@@ -65,7 +65,7 @@
                             <label class="form-check-label" for="rememberMe">Nhớ mật khẩu</label>
                               </div>
                             <!-- Đăng nhập -->
-                            <button type="button" class="btn btn-primary btn-block" onclick="login()">Đăng Nhập</button>
+                            <button type="button" class="btn btn-primary btn-block" onclick="window.location.href = '/qlyVcher'">Đăng Nhập</button>
                             <!-- Thêm liên kết/quên mật khẩu -->
                             <div class="form-group text-center">
                                 <a style="color: #000000;" href="/forgotPassword" data-toggle="modal" data-target="#forgotPasswordModal">Quên
@@ -80,79 +80,29 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
-    <!-- Firebase JavaScript SDK -->
-    <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-database.js"></script>
+  
+   
+
+       
+
     <script>
-        const firebaseConfig = {
-          apiKey: "AIzaSyApn6WHL7ONYrT_YOozoKWMxkrdpGAYMP4",
-  authDomain: "duanthuctap-2c489.firebaseapp.com",
-  databaseURL: "https://duanthuctap-2c489-default-rtdb.firebaseio.com",
-  projectId: "duanthuctap-2c489",
-  storageBucket: "duanthuctap-2c489.appspot.com",
-  messagingSenderId: "166672517134",
-  appId: "1:166672517134:web:2ab8bbda4eee5fd27d945f",
-  measurementId: "G-VC5ZXZGB08"
-        };
-        firebase.initializeApp(firebaseConfig);
 
-        // Khai báo biến database ở đây
-        const database = firebase.database();
+function login() {
+    const email = "huy";
+    const password = "123";
+    const EmailInput = editForm.querySelector('#email').value; // Lấy giá trị của trường email
+    const PassInput = editForm.querySelector('#password').value; // Lấy giá trị của trường mật khẩu
+    
 
-        function login() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            firebase.database().ref('users').orderByChild('email').equalTo(email).once('value')
-                .then(snapshot => {
-                    const user = snapshot.val();
-                    let userData;
-
-                    for (let key in user) {
-                        userData = user[key];
-                    }
-
-                    if (userData && userData.password === password) {
-                        // Đăng nhập thành công
-                     
-                        console.log(userData);
-
-                        updateLoggedInStatus(true);
-
-                        // Chuyển hướng đến trang home.hbs
-                        window.location.href = '/homeAdmin';
-                    } else {
-                        // Mật khẩu không đúng hoặc người dùng không tồn tại
-                        alert('Đăng nhập thất bại!');
-                    }
-                })
-                .catch(error => {
-                    // Xử lý lỗi đăng nhập
-                    console.error('Lỗi đăng nhập:', error);
-                    alert('Đăng nhập thất bại!');
-                });
-        }
-
-        // Hàm cập nhật trạng thái loggedIn trong bảng admin của Realtime Database
-        function updateLoggedInStatus(loggedIn) {
-            // Lấy reference đến đối tượng admin trong Realtime Database
-            const adminRef = firebase.database().ref('users').child("0Syobn6farX70IvRip7uOM1ttt03");
-
-            // Thực hiện cập nhật trường loggedIn thành true
-            adminRef.update({
-                loggedIn: loggedIn
-            })
-                .then(() => {
-                    // Cập nhật thành công
-                    alert('Đã cập nhật trạng thái loggedIn.');
-                })
-                .catch((error) => {
-                    // Xảy ra lỗi trong quá trình cập nhật
-                    console.error('Lỗi khi cập nhật trạng thái loggedIn:', error.message);
-                    alert('Có lỗi xảy ra khi cập nhật trạng thái loggedIn.');
-                });
-        }
-
+    if (email === EmailInput && password === PassInput) {
+        console.log(email,password,EmailInput,PassInput)
+        // Đăng nhập thành công
+        window.location.href = '/qlyVcher'; // Chuyển hướng trang sau khi đăng nhập thành công
+    } else {
+        // Mật khẩu không đúng hoặc người dùng không tồn tại
+        alert('Đăng nhập thất bại!');
+    }
+}
 
     </script>
 </body>
