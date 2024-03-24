@@ -10,7 +10,6 @@ import {
   import React, { useState, useEffect } from "react";
   import { StatusBar } from "expo-status-bar";
   import AsyncStorage from "@react-native-async-storage/async-storage";
-  import ManHinhLogin from "./ManHinhLogin";
   
   export default function ManHinhSignUp(props) {
     const [userName, setUsername] = useState("");

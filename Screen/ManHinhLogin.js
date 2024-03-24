@@ -1,23 +1,31 @@
 import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  Alert,
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    TextInput,
+    TouchableOpacity,
+    Alert, Pressable, Platform,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import ManHinhSignUp from "./ManHinhSignUp";
-
+import { Linking } from 'react-native';
+import { Connection, PublicKey } from '@solana/web3.js';
+import { clusterApiUrl } from '@solana/web3.js';
+import {transact, Web3MobileWallet} from '@solana-mobile/mobile-wallet-adapter-protocol-web3js';
+import AppLink from 'react-native-app-link';
+import SendIntentAndroid from 'react-native-send-intent';
 export default function ManHinhLogin(props) {
   const [userName, setUsername] = useState("");
   const [passWord, setPassword] = useState("");
   const [chucVu, setChucVu] = useState("Quản lý");
   const [listNhanVien, setListNhanVien] = useState([]);
 
+
+    const handleButtonPress = () => {
+
+    };
   const login = async () => {
     props.navigation.navigate("Menu");
   };
@@ -35,6 +43,9 @@ export default function ManHinhLogin(props) {
       />
       <View style={{ flexDirection: "column", margin: 10, padding: 20 }}>
         {/* form header  */}
+        {/*  <Pressable onPress={handleButtonPress} style={styles.pressableMargin}>*/}
+        {/*  </Pressable>*/}
+
         <Text style={{ fontSize: 36, color: "#35C2C1", fontWeight: "bold" }}>
           Welcome Back!
         </Text>
@@ -138,7 +149,7 @@ export default function ManHinhLogin(props) {
       </View>
       </View>
 
-      
+
       <View style={{ flex: 1 }}>
         <Image
           style={{ width: "100%" }}
@@ -146,7 +157,7 @@ export default function ManHinhLogin(props) {
         />
       </View>
 
-    
+
 
       <StatusBar hidden={true} />
     </View>
@@ -163,5 +174,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 10,
-  },
+  }
+
 });

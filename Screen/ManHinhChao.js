@@ -11,7 +11,7 @@ export default function ManHinhChao({navigation}){
       if (token) {
         navigation.navigate('Menu');
       } else {
-        navigation.navigate('Màn Hình Đăng Nhập');
+        navigation.navigate('Login');
       }
     };
     useEffect(() => {
