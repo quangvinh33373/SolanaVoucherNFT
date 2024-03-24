@@ -56,43 +56,38 @@ exports.delete=async(req,res,next)=>{
   }
 }
 
-exports.put=async(req,res,next)=>{
- // Lấy ID tài liệu từ URL
- // cai req.body chua trung ten cua cai input 
- // sau body la name 
- const collectionRef = admin.firestore().collection('Users');
- const Id = collectionRef.doc().id;
-
- const docID = Id ? collectionRef.doc(Id) : collectionRef.doc();
-      const newData = {
-        id : Id,
-        Avatar: req.body.Avatar,
-        SDT: req.body.SDT,
-        
-        Fullname: req.body.Fullname,
-        Email:req.body.Email,
-        Password: req.body.Password,
-      }; 
-      docID.set(newData).then(() => {
-        res.status(200).send(`Document with ID: add successfully`);
-        return collectionRef.doc().id;
-    })
-       //log ra newData truoc de check o day
-        console.log(newData)
+exports.put = async (req, res, next) => {
   try {
-     // Dữ liệu mới từ request body
-      console.log(newData);
+    // Lấy ID tài liệu từ URL
+    const collectionRef = admin.firestore().collection('Users');
+    const Id = collectionRef.doc().id;
 
-      // Cập nhật tài liệu dựa trên ID và dữ liệu mới đã cung cấp
- 
-      res.redirect('/qlyKH');
-  
-      
-    } catch (error) {
-      console.error('Error updating data:', error);
-      res.status(500).send('Error updating data in Firestore');
-    }
-}
+    const docID = Id ? collectionRef.doc(Id) : collectionRef.doc();
+    const newData = {
+      id: Id,
+      Avatar: req.body.Avatar,
+      SDT: req.body.SDT,
+      Fullname: req.body.Fullname,
+      Email: req.body.Email,
+      Password: req.body.Password,
+    };
+
+    // log ra newData trước để kiểm tra
+    console.log(newData);
+
+    // Ghi dữ liệu mới vào Firestore
+    await docID.set(newData);
+
+    // Chuyển hướng người dùng đến '/qlyKH' sau khi ghi dữ liệu thành công
+    res.redirect('/qlyKH');
+  } catch (error) {
+    console.error('Error updating data:', error);
+    res.status(500).send('Error updating data in Firestore');
+  }
+};
+
+
+
 exports.update=async(req,res,next)=>{
   try {
     const Id=req.params.id;

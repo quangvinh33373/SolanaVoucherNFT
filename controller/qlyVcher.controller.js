@@ -56,43 +56,36 @@ exports.delete=async(req,res,next)=>{
   }
 }
 
-exports.put=async(req,res,next)=>{
- // Lấy ID tài liệu từ URL
- // cai req.body chua trung ten cua cai input 
- // sau body la name 
- const collectionRef = admin.firestore().collection('Voucher');
- const Id = collectionRef.doc().id;
-
- const docID = Id ? collectionRef.doc(Id) : collectionRef.doc();
-      const newData = {
-        id : Id,
-        imgVoucher: req.body.imgVoucher,
-        maVoucher: req.body.maVoucher,
-        
-        hanSd: req.body.hanSd,
-        hanmuc:req.body.hanmuc,
-        Loai: req.body.Loai,
-      }; 
-      
-      docID.set(newData).then(() => {
-        res.status(200).send(`Document with ID: add successfully`);
-        return collectionRef.doc().id;
-    })
-       //log ra newData truoc de check o day
-        console.log(newData)
+exports.put = async (req, res, next) => {
   try {
-     // Dữ liệu mới từ request body
-      console.log(newData);
+    // Lấy ID tài liệu từ URL
+    const collectionRef = admin.firestore().collection('Voucher');
+    const Id = collectionRef.doc().id;
 
-      
-      res.redirect('/qlyVcher');
+    const docID = Id ? collectionRef.doc(Id) : collectionRef.doc();
+    const newData = {
+      id: Id,
+      imgVoucher: req.body.imgVoucher,
+      maVoucher: req.body.maVoucher,
+      hanSd: req.body.hanSd,
+      hanmuc: req.body.hanmuc,
+      Loai: req.body.Loai,
+    };
 
-       
-    } catch (error) {
-      console.error('Error updating data:', error);
-      res.status(500).send('Error updating data in Firestore');
-    }
-}
+    // log ra newData trước để kiểm tra
+    console.log(newData);
+
+    // Ghi dữ liệu mới vào Firestore
+    await docID.set(newData);
+
+    // Redirect sau khi ghi dữ liệu thành công
+    res.redirect('/qlyVcher');
+  } catch (error) {
+    console.error('Error updating data:', error);
+    res.status(500).send('Error updating data in Firestore');
+  }
+};
+
 exports.update=async(req,res,next)=>{
   try {
     const Id=req.params.id;
