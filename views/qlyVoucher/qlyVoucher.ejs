@@ -144,96 +144,103 @@
     
           <!-- Thanh tìm kiếm -->
           <div class="search-container">
-            <input type="text" placeholder="Nhập từ khóa..." class="search-box">
+            <form id="sForm">
+                <input type="text" placeholder="Nhập loại voucher..." id="searchInput">
+                <button type="submit" class="search-button">Search</button>
+            </form>
+          
            
-          </div>
+          
         
       </nav>
 </head>
 
-<body class="m-0 p-0 container-fluid">
-    
-        <div class="m-4">
-            <h1 style=" text-align: center;margin-left:20px">Danh sách Voucher</h1>
-           
-            <% if(listStaff) {%>
-                <table class="table table-hover table-bordered mt-2" style=" text-align: center">
-                    <thead>
-                        <tr class="text-center">
-                            
-                            <th  scope="col">ImgVoucher</th>
-                            <th scope="col">Mã</th>
-                            <th scope="col">Hạn sử dụng</th>
-                            <th scope="col">Hạn mức</th>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh sách Voucher</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .card {
+      border: 2px solid #000; /* Thiết lập viền đậm hơn */
+    }
+    .card-img-top {
+      max-height: 200px; /* Điều chỉnh kích thước hình ảnh */
+      object-fit: cover;
+    }
+    .card-title {
+      font-size: 1.2rem; /* Thiết lập kích thước phần tiêu đề */
+    }
+    .card-text {
+      font-size: 0.9rem; /* Thiết lập kích thước phần nội dung */
+    }
+    .btn {
+      font-size: 0.8rem; /* Thiết lập kích thước nút */
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-4">
+    <h1 class="text-center">Danh sách Voucher</h1>
 
-                            <th scope="col">Loại</th>
-                            <th></th>
-                           
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% listStaff.forEach((item)=> {
-                            %>
-
-                            <tr class="align-middle">
-                                
-                                <td>
-                                      <img src="<%= item.imgVoucher %>" alt="<%= item.imgVoucher %>">
-                                </td>
-
-                                <td>
-                                    <%= item.maVoucher %>
-                                </td>
-                                <td scope="row">
-                                   <%= item.hanSd %>
-                                </td>
-                                <td scope="row">
-                                  <%= item.hanmuc %>
-                               </td>
-                                <td scope="row">
-                                   <%= item.Loai %>
-                                </td>
-                                
-                               
-                                
-                                <td class="text-center">
-                                    
-                                    <button data-item-id="<%= item.id %>" 
-                                     data-item-imgVoucher="<%= item.imgVoucher %>" 
-                                        data-item-maVoucher="<%= item.maVoucher %>"
-                                        data-item-hanSd="<%= item.hanSd %>"
-                                        data-item-hanmuc="<%= item.hanmuc %>"
-
-                                        data-item-Loai="<%= item.Loai %>" 
-                                        
-                                        type="button" class="btn btn-success " data-bs-toggle="modal" data-bs-target="#updateModal" >Edit</button>
-
-                                    <button data-item-id="<%= item.id %>" data-item-name="<%= item.maVoucher %>"
-                                        class="btn btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#deleteModal">Delete</button>
-                                </td>
-                             
-                            </tr>
-                            <% }) %>
-                    </tbody>
-                </table>
-                <% }else{ %>
-                    <h3>Không có dữ liệu</h3>
-                    <% } %>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <p class="m-0">Showing:10/100 items</p>
-                            <nav aria-label="Page navigation example" class="">
-                                <ul class="pagination m-0">
-                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                </ul>
-                            </nav>
-                        </div>
+    <% if(listStaff) { %>
+    <div class="row">
+        <% listStaff.forEach((item) => { %>
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <img src="<%= item.imgVoucher %>" class="card-img-top" alt="<%= item.imgVoucher %>">
+                <div class="card-body">
+                    <h5 class="card-title"><%= item.maVoucher %></h5>
+                    <p class="card-text">Hạn sử dụng: <%= item.hanSd %></p>
+                    <p class="card-text">Hạn mức: <%= item.hanmuc %></p>
+                    <p class="card-text">Loại: <%= item.Loai %>%</p>
+                </div>
+                <div class="card-footer text-center">
+                    <button data-item-id="<%= item.id %>" data-item-imgVoucher="<%= item.imgVoucher %>"
+                        data-item-maVoucher="<%= item.maVoucher %>" data-item-hanSd="<%= item.hanSd %>"
+                        data-item-hanmuc="<%= item.hanmuc %>" data-item-Loai="<%= item.Loai %>"
+                        type="button" class="btn btn-success mr-2" data-bs-toggle="modal"
+                        data-bs-target="#updateModal">Edit</button>
+                    <button data-item-id="<%= item.id %>" data-item-name="<%= item.maVoucher %>"
+                        class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+                </div>
+            </div>
         </div>
-        <div><button type="button" class="add-customer-button" data-bs-toggle="modal" data-bs-target="#addModal">Add Voucher</button></div>
+        <% }) %>
+    </div>
+    <% } else { %>
+    <h3 class="text-center">Không có dữ liệu</h3>
+    <% } %>
+
+    <div class="d-flex justify-content-between align-items-center mt-4">
+        <p class="m-0">Showing: 10/100 items</p>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination m-0">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="mt-4 text-center">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Add
+            Voucher</button>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
 
        
         
@@ -422,10 +429,92 @@
                     });
                 });
             </script>
+ 
 
-            
+ <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js"></script>
+
+
+            <script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyApn6WHL7ONYrT_YOozoKWMxkrdpGAYMP4",
+  authDomain: "duanthuctap-2c489.firebaseapp.com",
+  databaseURL: "https://duanthuctap-2c489-default-rtdb.firebaseio.com",
+  projectId: "duanthuctap-2c489",
+  storageBucket: "duanthuctap-2c489.appspot.com",
+  messagingSenderId: "166672517134",
+  appId: "1:166672517134:web:2ab8bbda4eee5fd27d945f",
+  measurementId: "G-VC5ZXZGB08"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+              
+            </script>
+ 
+
+  
+  <!-- Sử dụng đường dẫn tuyệt đối cho tệp tin search.js -->
+  <script>// Lắng nghe sự kiện submit form tìm kiếm
+// Lắng nghe sự kiện submit form tìm kiếm
+document.getElementById('sForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Ngăn chặn hành vi mặc định của form
+
+    // Lấy giá trị nhập vào từ input tìm kiếm
+    const searchQuery = document.getElementById('searchInput').value;
+  window.location.href = `./search-results?query=${searchQuery}`;
+    // Tạo truy vấn tìm kiếm trong Firestore
+    const db = firebase.firestore();
+    const vouchersRef = db.collection('Voucher');
+
+    // Sử dụng where() để lọc theo trường 'Loai' và 'maVoucher'
+    const query = vouchersRef.where('Loai', '==', searchQuery).get()
+        .then(querySnapshot => {
+            // Khởi tạo mảng kết quả
+            const results = [];
+            querySnapshot.forEach(doc => {
+                // Thêm dữ liệu từ các tài liệu tìm thấy vào mảng kết quả
+                results.push(doc.data());
+            });
+            // Xóa trước khi hiển thị kết quả
+            clearPreviousResults();
+            // Xử lý kết quả
+            displaySearchResults(results);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});
+
+// Xóa kết quả tìm kiếm trước đó
+function clearPreviousResults() {
+    const searchResultsContainer = document.getElementById('searchResults');
+    searchResultsContainer.innerHTML = '';
+}
+
+// Hiển thị kết quả tìm kiếm lên trang web
+function displaySearchResults(results) {
+    const searchResultsContainer = document.getElementById('searchResults');
+
+    if (results.length === 0) {
+        searchResultsContainer.innerHTML = '<p>No vouchers found</p>';
+    } else {
+        const resultList = document.createElement('ul');
+        results.forEach(voucher => {
+            const listItem = document.createElement('li');
+            listItem.textContent = voucher.maVoucher; // Hiển thị mã voucher, bạn có thể tùy chỉnh hiển thị theo nhu cầu
+            resultList.appendChild(listItem);
+        });
+        searchResultsContainer.appendChild(resultList);
+    }
+}
+
+
+    </script> 
 
    
+
 
 
 </body>
