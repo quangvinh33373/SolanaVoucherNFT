@@ -31,6 +31,30 @@ exports.qlyKH = async (req, res, next) => {
   res.render('qlyKH/qlyKH', {  listStaff: listJson, msg: msg});
 }
 
+exports.qlykhMobile = async (req, res, next) => {
+  const data = [];
+  
+  
+
+  try {
+    const snapshot = await db.collection('Users').get();
+    const data = [];
+
+    snapshot.forEach(doc => {
+      data.push({
+        id: doc.id,
+        ...doc.data()
+      });
+    });
+
+    res.status(200).json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Error fetching data from Firestore');
+  }
+
+}
+
 exports.delete=async(req,res,next)=>{
   try {
     const Id=req.params.id;

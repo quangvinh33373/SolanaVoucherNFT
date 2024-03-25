@@ -4,8 +4,8 @@ var spController = require('../controller/login.controller')
 
 
 router.get('/',  spController.login);
-router.post('/',  spController.login);
-
+router.post('/login',  spController.login);
+router.post('/loginAPI',  spController.LOGIN);
 
 
 module.exports = router;
