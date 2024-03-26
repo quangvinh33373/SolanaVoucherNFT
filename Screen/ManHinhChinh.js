@@ -1,97 +1,159 @@
-import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Image, ImageBackground, TouchableOpacity,TextInput ,FlatList} from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import React ,{useState}from 'react';
 
-import React , {useEffect, useState} from "react";
-import { StatusBar } from "expo-status-bar";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import moment from 'moment';
+export default function ManHinhChinh({ navigation }) {
 
+    const [searchText, setSearchText] = useState('');
+
+    // Danh sách các voucher cố định
+    const vouchers = [
+        {
+            id: 1,
+            image: require('../assets/logoVoucher.png' ),          
+            name: 'Voucher 1',
+            code: 'CODE123',
+            expiryDate: '30/04/2024'
+        },
+        {
+            id: 2,
+            image: require('../assets/logoVoucher.png' ),          
+            name: 'Voucher 2',
+            code: 'CODE456',
+            expiryDate: '15/05/2024'
+        },
+        {
+            id: 3,
+            image: require('../assets/logoVoucher.png' ),          
+            name: 'Voucher 3    ',
+            code: 'CODE456',
+            expiryDate: '15/05/2024'
+        },
+        {
+            id: 4,
+            image: require('../assets/logoVoucher.png' ),          
+            name: 'Voucher 4',
+            code: 'CODE456',
+            expiryDate: '15/05/2024'
+        },
+        {
+            id: 5,
+            image: require('../assets/logoVoucher.png' ),          
+            name: 'Voucher 5',
+            code: 'CODE456',
+            expiryDate: '15/05/2024'
+        },
+        {
+            id: 6,
+            image: require('../assets/logoVoucher.png' ),          
+            name: 'Voucher 6',
+            code: 'CODE456',
+            expiryDate: '15/05/2024'
+        },
+        
+      
+    ];
+
+     // Hàm lọc danh sách voucher dựa trên searchText
+     const filteredVouchers = vouchers.filter(voucher =>
+        voucher.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+
+    return (
+        <SafeAreaView style={styles.container}>
+            <ImageBackground
+                source={require('../assets/background.png')}
+                style={styles.backgroundImage}
+            >
+            {/* TextInput tìm kiếm */}
+            
+            <TextInput
+                    style={styles.searchInput}
+                    placeholder="Nhập tên voucher để tìm kiếm"  
+                    value={searchText}
+                    onChangeText={text => setSearchText(text)}
+                />
+                <FlatList
+                    data={vouchers}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({ item }) => (
+                        <View style={styles.voucherItem}>
+                            <Image source={item.image} style={styles.voucherImage} />
+                            <View style={styles.voucherDetails}>
+                                <Text style={styles.voucherName}>{item.name}</Text>
+                                <Text style={styles.voucherInfo}>Mã voucher: {item.code}</Text>
+                                <Text style={styles.voucherInfo}>Hạn sử dụng: {item.expiryDate}</Text>
+                            </View>
+                           
+                        </View>
+                    )}
+                />
+            </ImageBackground>
+            <StatusBar hidden={true} />
+        </SafeAreaView>
+    );
+}
 
 const styles = StyleSheet.create({
-  root: { flex: 1 },
-  container: { flex: 1, justifyContent: "flex-start" },
-  cardView: {
-    backgroundColor: "#F7F8F9",
-    borderRadius: 8,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
+    container: {
+        flex: 1,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-    padding: 15,
-    borderRadius: 10,
-    width: 160,
-
-  },
+    backgroundImage: {
+        flex: 1,
+        alignItems: 'center',
+    },
+    searchInput: {
+        width: '90%',
+        backgroundColor: '#fff',
+        marginVertical: 10,
+        padding: 10,
+        borderRadius: 10,
+    },
+    voucherItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '80%',
+        marginVertical: 10,
+        backgroundColor: '#fff',
+        padding: 8,
+        borderRadius: 10,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    voucherImage: {
+        width: 100,
+        height: 100,
+        resizeMode: 'cover',
+        borderRadius: 10,
+    },
+    voucherDetails: {
+        flex: 1,
+        marginHorizontal: 10,
+    },
+    voucherName: {
+        fontWeight: 'bold',
+        fontSize: 16,
+        marginBottom: 5,
+    },
+    voucherInfo: {
+        fontSize: 14,
+        marginBottom: 3,
+    },
+    sellButton: {
+        backgroundColor: '#35C2C1',
+        borderRadius: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+    },
+    sellButtonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+    },
 });
-export default function ManHinhChinh() {
-  const [tenNhanVien, setTenNhanVien] = useState("");
-  const [listPhong, setListPhong] = useState([]);
-  const [listDatPhong, setListDatPhong] = useState([]);
-  
- 
-
-  return (
-    <View style={styles.root}>
-      <StatusBar hidden />
-      <ImageBackground
-        style={styles.container}
-        source={require("../assets/background.png")}
-      >
-        <View
-          style={{
-            backgroundColor: "#fff",
-            height: 100,
-            margin: 20,
-            borderRadius: 15,
-          }}
-        >
-          <View
-            style={{
-              backgroundColor: "#8CDBDA",
-              height: 80,
-              margin: 10,
-              borderRadius: 10,
-              flexDirection: "row",
-              alignItems: "center",
-              shadowColor: "#fff",
-              shadowOpacity: 1,
-              shadowOffset: 2,
-            }}
-          >
-            <Image
-              style={{ width: 50, height: 50, borderRadius: 20, margin: 20 }}
-              source={require("../assets/avtPerson.png")}
-            />
-
-            <View style={{alignSelf:"center"}}>
-              <Text style={{ fontSize: 16, fontWeight: 700 }}>Bui Van A</Text>
-              <View style={{flexDirection:"row" , alignItems:"center"}}>
-
-                <Image
-                  style={{ width: 10, height: 10, borderRadius: 20, }}
-                  source={require("../assets/image_66.png")}
-                />
-                <Text style={{ fontSize: 14, fontWeight: "400", marginLeft: 10 }}>Online</Text>
-              </View>
-            </View>
-
-            <View style={{ flexDirection: "row", flex: 1, alignItems: "flex-end", justifyContent: "flex-end" }}>
-              <Image
-                style={{ width: 50, height: 50, }}
-                source={require("../assets/Group_1000003409.png")}
-              />
-              <Image
-                style={{ width: 50, height: 50, }}
-                source={require("../assets/Group_1000003404.png")}
-              />
-            </View>
-          </View>
-        </View>
-      
-      </ImageBackground>
-    </View>
-  );
-}

@@ -10,6 +10,8 @@ import ManHinhLogin from './Screen/ManHinhLogin';
 import ManHinhChinh  from './Screen/ManHinhChinh';
 import ManHinhSignUp from './Screen/ManHinhSignUp';
 import QuanLyVoucher from './Screen/QuanLyVoucher';
+import WalletScreen from './Screen/WalletScreen';
+import NhanVienScreen from './Screen/ProfileScreen';
 import DrawerNavigation from './Screen/DrawerNavigation';
 
 export default function App() {
@@ -19,9 +21,9 @@ export default function App() {
         <Stack.Screen name='Màn Hình Chào' component={ManHinhChao} />
         
         <Stack.Screen name='Login' component={ManHinhLogin}/>
-
+        <Stack.Screen name='ProfileScreen' component={NhanVienScreen}/>
           <Stack.Screen name='ManHinhSignUp' component={ManHinhSignUp}/>
-        
+          <Stack.Screen name='WalletScreen' component={WalletScreen}/>
         <Stack.Screen name='Menu' component={DrawerNavigation}
         />
 
