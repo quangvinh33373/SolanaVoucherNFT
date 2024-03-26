@@ -27,9 +27,8 @@ import {
 } from "@expo/vector-icons";
 
 export default function KhachHangScreen() {
-  //hostname
-  // const hostname = "192.168.1.6"; //long
-  const hostname = '192.168.126.1'; //hantnph28876
+ 
+
 
   // value compoent
   const [_id, setId] = useState();

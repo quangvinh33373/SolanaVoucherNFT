@@ -27,7 +27,7 @@ import {
 } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 
-export default function NhanVienScreen() {
+export default function NhanVienScreen({navigation}) {
   // value compoent
   const [_id, setId] = useState();
   const [tenNhanVien, setTenNhanVien] = useState("");
@@ -188,7 +188,17 @@ export default function NhanVienScreen() {
         >
           <Text style={styles.buttonText}>Sửa thông tin</Text>
         </TouchableOpacity>
-       
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+              {
+
+               navigation.navigate('WalletScreen')
+              }
+            }}
+        >
+          <Text style={styles.buttonText}>Kết nối Ví</Text>
+        </TouchableOpacity>
        
       </View>
     </View>

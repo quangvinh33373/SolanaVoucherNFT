@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 require('./models/LoaiPhong')
-require('./models/Phong')
+require('./models/Voucher')
 require('./models/NhanVien')
 
 ///
