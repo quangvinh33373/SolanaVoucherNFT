@@ -55,6 +55,10 @@ exports.qlykhMobile = async (req, res, next) => {
 
 }
 
+
+
+
+
 exports.delete=async(req,res,next)=>{
   try {
     const Id=req.params.id;

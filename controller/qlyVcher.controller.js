@@ -30,6 +30,9 @@ exports.qlyVoucher = async (req, res, next) => {
 
   res.render('qlyVoucher/qlyVoucher', {  listStaff: listJson, msg: msg});
 }
+
+
+
 exports.qlyVoucherMobile = async (req, res, next) => {
   const data = [];
   
@@ -53,6 +56,71 @@ exports.qlyVoucherMobile = async (req, res, next) => {
   }
 
 }
+
+
+exports.buyVoucher = async (req, res, next) => {
+  try {
+    const voucherId = req.params.id;
+    const userName = req.body.userName;
+
+    // Kiểm tra xem phiếu giảm giá có tồn tại không
+    const voucherDoc = await admin.firestore().collection('Voucher').doc(voucherId).get();
+    if (!voucherDoc.exists) {
+      return res.status(404).json({ error: `Phiếu giảm giá với ID ${voucherId} không tồn tại` });
+    }
+    
+    // Kiểm tra trạng thái của phiếu giảm giá
+    const voucherData = voucherDoc.data();
+    if (voucherData.trangThai !== 'đang bán') {
+      return res.status(403).json({ error: `Phiếu giảm giá với ID ${voucherId} không thể mua được` });
+    }
+
+    await admin.firestore().collection('Voucher').doc(voucherId).update({ userName: userName });
+    // Cập nhật trạng thái của phiếu giảm giá thành "đã mua"
+    await admin.firestore().collection('Voucher').doc(voucherId).update({ trangThai: 'đã mua' });
+
+    res.status(200).json({ message: `Phiếu giảm giá với ID ${voucherId} đã được mua thành công bởi người dùng ${userName}` });
+  } catch (error) {
+    console.error('Lỗi khi mua phiếu giảm giá:', error);
+    res.status(500).send('Lỗi khi mua phiếu giảm giá');
+  }
+};
+
+
+
+exports.sellVoucher = async (req, res, next) => {
+  try {
+    const voucherId = req.params.id;
+    const userName = req.body.userName;
+
+
+    // Kiểm tra xem phiếu giảm giá có tồn tại không
+    const voucherDoc = await admin.firestore().collection('Voucher').doc(voucherId).get();
+    if (!voucherDoc.exists) {
+      return res.status(404).json({ error: `Phiếu giảm giá với ID ${voucherId} không tồn tại` });
+    }
+
+    // Kiểm tra trạng thái của phiếu giảm giá
+    const voucherData = voucherDoc.data();
+    if (voucherData.trangThai !== 'đã mua') {
+      return res.status(403).json({ error: `Phiếu giảm giá với ID ${voucherId} không thể bán được` });
+    }
+
+    await admin.firestore().collection('Voucher').doc(voucherId).update({ userName: userName });
+    // Cập nhật trạng thái của phiếu giảm giá thành "đang bán"
+    await admin.firestore().collection('Voucher').doc(voucherId).update({ trangThai: 'đang bán' });
+
+    res.status(200).json({ message: `Phiếu giảm giá với ID ${voucherId} đã được bán thành công bởi người dùng ${userName}` });
+  } catch (error) {
+    console.error('Lỗi khi bán phiếu giảm giá:', error);
+    res.status(500).send('Lỗi khi bán phiếu giảm giá');
+  }
+};
+
+
+
+
+
 exports.delete=async(req,res,next)=>{
   try {
     const Id=req.params.id;
