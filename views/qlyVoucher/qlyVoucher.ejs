@@ -150,7 +150,7 @@
             </form>
             <div id="searchResults"></div>
            
-            <script src="../seach.js">
+           
 
             </script> 
         
@@ -457,15 +457,13 @@
                     });
                 });
             </script>
- 
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore.js"></script>
 
- <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js"></script>
-
-
-            <script>
-
-const firebaseConfig = {
+  <script>
+      // Initialize Firebase
+      const firebaseConfig = {
   apiKey: "AIzaSyApn6WHL7ONYrT_YOozoKWMxkrdpGAYMP4",
   authDomain: "duanthuctap-2c489.firebaseapp.com",
   databaseURL: "https://duanthuctap-2c489-default-rtdb.firebaseio.com",
@@ -475,18 +473,54 @@ const firebaseConfig = {
   appId: "1:166672517134:web:2ab8bbda4eee5fd27d945f",
   measurementId: "G-VC5ZXZGB08"
 };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+      document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('searchForm'); // Lấy thẻ form bằng id 'searchForm'
+    form.addEventListener('submit', function (event) {
+        event.preventDefault(); // Ngăn chặn hành vi mặc định của form
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-              
-            </script>
- 
+        const searchInput = document.getElementById('searchInput').value.trim(); // Lấy giá trị từ input search và loại bỏ khoảng trắng đầu cuối
 
-  
-  <!-- Sử dụng đường dẫn tuyệt đối cho tệp tin search.js -->
- 
+        const searchResults = document.getElementById('searchResults');
+        searchResults.innerHTML = '<p>Đang tìm kiếm...</p>'; // Thêm thông báo tìm kiếm đang diễn ra
 
+        // Thực hiện truy vấn Firebase để lấy danh sách voucher với loại tương ứng
+        db.collection('Voucher').where('Loai', '==', searchInput).get()
+            .then(function (querySnapshot) {
+                searchResults.innerHTML = ''; // Xóa thông báo tìm kiếm đang diễn ra
 
+                if (querySnapshot.empty) {
+                    searchResults.innerHTML = '<p>Không tìm thấy kết quả.</p>'; // Hiển thị thông báo nếu không tìm thấy kết quả
+                } else {
+                    // Lặp qua mỗi voucher trong kết quả truy vấn và hiển thị thông tin
+                    querySnapshot.forEach(function (doc) {
+                        const voucher = doc.data();
+                        // Tạo HTML để hiển thị thông tin voucher trên trang web
+                        const voucherHTML = `
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">${voucher.maVoucher}</h5>
+                                    <p class="card-text">Ngày hết hạn: ${voucher.hanSd}</p>
+                                    <p class="card-text">Giới hạn: ${voucher.hanmuc}</p>
+                                    <p class="card-text">Loại: ${voucher.Loai}%</p>
+                                    <p class="card-text">Giá: ${voucher.giaBan}</p>
+                                </div>
+                            </div>
+                        `;
+
+                        // Thêm HTML voucher vào div kết quả tìm kiếm
+                        searchResults.innerHTML += voucherHTML;
+                    });
+                }
+            })
+            .catch(function (error) {
+                console.error("Lỗi khi lấy tài liệu: ", error); // Ghi log lỗi nếu truy vấn thất bại
+            });
+    });
+});
+
+  </script>
 
 </body>
 

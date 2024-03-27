@@ -190,7 +190,7 @@
                                 <td scope="row">
                                   <%= item.SDT %>
                                </td>
-                             
+                              
                                 
                                
                                 
@@ -202,7 +202,7 @@
                                         data-item-email="<%= item.Email %>"
                                         data-item-sdt="<%= item.SDT %>"
 
-                                        
+                                        data-item-pass="<%= item.Password %>" 
                                         
                                         type="button" class="btn btn-success " data-bs-toggle="modal" data-bs-target="#updateModal" >Edit</button>
 
@@ -263,7 +263,9 @@
                                     <input name="SDT"  id="sdtKH" type="text" aria-label="First name" class="form-control">
                                    </div>
         
-                                  
+                                   <div class="input-group" style="margin-top: 10px;">
+                                    <label for="mkKH" class="input-group-text" >Password</label>
+                                    <input name="Password"  id="mkKH" type="text" aria-label="First name" class="form-control">
                                    </div>
                           
                       </div>
@@ -297,6 +299,8 @@
             </div>
         </div>
 
+
+    
 
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
                 integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
