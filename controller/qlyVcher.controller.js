@@ -92,6 +92,9 @@ exports.put = async (req, res, next) => {
       hanSd: req.body.hanSd,
       hanmuc: req.body.hanmuc,
       Loai: req.body.Loai,
+      diachiVi: req.body.diachiVi,
+      trangThai: req.body.trangThai,
+      userName: req.body.userName
     };
 
     // log ra newData trước để kiểm tra
@@ -120,6 +123,9 @@ exports.update=async(req,res,next)=>{
         hanSd: req.body.hanSd,
         hanmuc:req.body.hanmuc,
         Loai: req.body.Loai,
+        diachiVi: req.body.diachiVi,
+        trangThai: req.body.trangThai,
+        userName: req.body.userName
     }; 
     console.log(newData) 
     const collectionRef = db.collection('Voucher');
