@@ -62,7 +62,7 @@ exports.buyVoucher = async (req, res, next) => {
   try {
     const voucherId = req.params.id;
     const userName = req.body.userName;
-
+const diachiVi=req.body.diachiVi;
     // Kiểm tra xem phiếu giảm giá có tồn tại không
     const voucherDoc = await admin.firestore().collection('Voucher').doc(voucherId).get();
     if (!voucherDoc.exists) {
@@ -75,6 +75,7 @@ exports.buyVoucher = async (req, res, next) => {
       return res.status(403).json({ error: `Phiếu giảm giá với ID ${voucherId} không thể mua được` });
     }
 
+    await admin.firestore().collection('Voucher').doc(voucherId).update({ diachiVi: diachiVi });
     await admin.firestore().collection('Voucher').doc(voucherId).update({ userName: userName });
     // Cập nhật trạng thái của phiếu giảm giá thành "đã mua"
     await admin.firestore().collection('Voucher').doc(voucherId).update({ trangThai: 'đã mua' });
@@ -92,6 +93,7 @@ exports.sellVoucher = async (req, res, next) => {
   try {
     const voucherId = req.params.id;
     const userName = req.body.userName;
+   
 
 
     // Kiểm tra xem phiếu giảm giá có tồn tại không
