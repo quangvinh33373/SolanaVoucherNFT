@@ -54,6 +54,41 @@ exports.qlykhMobile = async (req, res, next) => {
   }
 
 }
+exports.updateCustomerAPI = async (req, res, next) => {
+  try {
+    const customerId = req.params.id;
+
+    // Kiểm tra xem yêu cầu có chứa dữ liệu của khách hàng để cập nhật không
+    if (!req.body.Avatar || !req.body.SDT || !req.body.Fullname || !req.body.Email || !req.body.Password) {
+      return res.status(400).json({ error: 'Yêu cầu thiếu thông tin khách hàng cần cập nhật.' });
+    }
+
+    const newData = {
+      Avatar: req.body.Avatar,
+      SDT: req.body.SDT,
+      Fullname: req.body.Fullname,
+      Email: req.body.Email,
+      Password: req.body.Password,
+    };
+
+    const docRef = db.collection('Users').doc(customerId);
+
+    // Kiểm tra xem khách hàng có tồn tại trong cơ sở dữ liệu không
+    const doc = await docRef.get();
+    if (!doc.exists) {
+      return res.status(404).json({ error: 'Khách hàng không tồn tại trong cơ sở dữ liệu.' });
+    }
+
+    // Thực hiện cập nhật dữ liệu của khách hàng
+    await docRef.update(newData);
+
+    res.status(200).json({ message: 'Dữ liệu khách hàng đã được cập nhật thành công.' });
+  } catch (error) {
+    console.error('Lỗi khi cập nhật dữ liệu khách hàng:', error);
+    res.status(500).json({ error: 'Đã xảy ra lỗi khi cập nhật dữ liệu khách hàng trong Firestore.' });
+  }
+};
+
 
 
 
