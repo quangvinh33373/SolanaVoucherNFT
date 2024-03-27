@@ -67,8 +67,10 @@ exports.updateCustomerAPI = async (req, res, next) => {
       Avatar: req.body.Avatar,
       SDT: req.body.SDT,
       Fullname: req.body.Fullname,
-      Email: req.body.Email,
+      Email:req.body.Email,
       Password: req.body.Password,
+      diachiVi:req.body.diachiVi,
+
     };
 
     const docRef = db.collection('Users').doc(customerId);
@@ -127,12 +129,13 @@ exports.put = async (req, res, next) => {
 
     const docID = Id ? collectionRef.doc(Id) : collectionRef.doc();
     const newData = {
-      id: Id,
+      id : Id,
       Avatar: req.body.Avatar,
       SDT: req.body.SDT,
       Fullname: req.body.Fullname,
-      Email: req.body.Email,
+      Email:req.body.Email,
       Password: req.body.Password,
+      diachiVi:req.body.diachiVi,
     };
 
     // log ra newData trước để kiểm tra
@@ -158,10 +161,10 @@ exports.update=async(req,res,next)=>{
       id : Id,
       Avatar: req.body.Avatar,
       SDT: req.body.SDT,
-      
       Fullname: req.body.Fullname,
       Email:req.body.Email,
       Password: req.body.Password,
+      diachiVi:req.body.diachiVi,
     }; 
     console.log(newData) 
     const collectionRef = db.collection('Users');
